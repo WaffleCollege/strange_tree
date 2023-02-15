@@ -40,7 +40,7 @@ const App = () => {
       <Router>
         <Navbar isAuth={isAuth} />
         <Routes>
-          <Route path="/" element={<MyPage />}></Route>
+          <Route path="/" element={<MyPage isAuth={isAuth}/>}></Route>
           <Route
             path="/login"
             element={
