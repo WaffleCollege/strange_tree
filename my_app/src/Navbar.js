@@ -10,21 +10,26 @@ import {
 export const Navbar = ({ isAuth }) => {
   return (
     <nav>
-      <Link to="/">
-        <FontAwesomeIcon icon={faHouse} />
-        マイページ
-      </Link>
-      {isAuth ? (
-        <Link to="/logout">
-          <FontAwesomeIcon icon={faArrowRightToBracket} />
-          ログアウト
+      <div className="pageTitle">
+        <a href="/">Strange Tree</a>
+      </div>
+      <div className="links">
+        <Link to="/">
+          <FontAwesomeIcon icon={faHouse} />
+          マイページ
         </Link>
-      ) : (
-        <Link to="/login">
-          <FontAwesomeIcon icon={faArrowRightToBracket} />
-          ログイン
-        </Link>
-      )}
+        {isAuth ? (
+          <Link to="/logout">
+            <FontAwesomeIcon icon={faArrowRightToBracket} />
+            ログアウト
+          </Link>
+        ) : (
+          <Link to="/login">
+            <FontAwesomeIcon icon={faArrowRightToBracket} />
+            ログイン
+          </Link>
+        )}
+      </div>
     </nav>
   );
 };
