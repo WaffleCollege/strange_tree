@@ -1,0 +1,27 @@
+.loginPage {
+    height: 40vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:center;
+}
+
+.loginPage .label {
+    font-size: 18px;
+    margin: 10px;
+}
+
+.loginPage button {
+    background-color: rgb(6, 115, 174);
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    box-shadow: 14px 13px 16px -10px #777777;
+    transition: all 0.1s;
+}
+
+button:hover {
+    transform: translateY(5px);
+}
