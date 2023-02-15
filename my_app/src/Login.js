@@ -6,15 +6,18 @@ import { auth, provider } from "./firebaseApp";
 const Login = ({ owner, setOwner, setIsAuth, setToken }) => {
   const navigate = useNavigate();
   const loginWithGithub = () => {
-    signInWithPopup(auth, provider).then((result) => {
-      setOwner(result._tokenResponse.screenName);
-      setIsAuth(true);
-      const credential = GithubAuthProvider.credentialFromResult(result);
-      setToken(credential.accessToken);
-      localStorage.setItem("isAuth", true);
-      localStorage.setItem("owner", owner);
-      navigate("/");
-    });
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        setOwner(result._tokenResponse.screenName);
+        setIsAuth(true);
+        const credential = GithubAuthProvider.credentialFromResult(result);
+        setToken(credential.accessToken);
+        navigate("/");
+      })
+      .then(() => {
+        localStorage.setItem("isAuth", true);
+        localStorage.setItem("owner", owner);
+      });
   };
   //   .then(() => {
   //         fetch(
