@@ -32,7 +32,7 @@ const App = () => {
   return (
     <div className="App">
       <Router>
-        <Navbar />
+        <Navbar isAuth={isAuth}/>
         <Routes>
           <Route
             path="/login"
