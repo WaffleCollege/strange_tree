@@ -10,20 +10,7 @@ const App = () => {
   const [owner, setOwner] = useState("");
   const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
 
-  // // ポップアップによるサインインを実施し、成功したらアクセストークンを取得する
-  // const loginWithGithub = () => {
-  //   signInWithPopup(auth, provider)
-  //     .then((result) => {
-  //       console.log(result.user);
-  //       console.log(result._tokenResponse.screenName);
-  //       setOwner(result._tokenResponse.screenName);
-  //       setIsAuth(true);
-  //       const credential = GithubAuthProvider.credentialFromResult(result);
-  //       if (credential && credential.accessToken) {
-  //         setToken(credential.accessToken);
-  //         console.log("token: " + credential.accessToken);
-  //       }
-  //     })
+  //サインインで取得したトークンでAPIにアクセス
   //     .then(() => {
   //       fetch(
   //         `https://api.github.com/users/${owner}/repos?per_page=100&page=1`,
@@ -41,13 +28,6 @@ const App = () => {
   //       });
   //     });
   // };
-
-  // // アクセストークンを使用してGitHub API（GET /Issues）へリクエストする
-  // useEffect(() => {
-  //   if (token !== null) {
-
-  //   }
-  // }, [token]);
 
   return (
     <div className="App">
