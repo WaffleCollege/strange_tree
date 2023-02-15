@@ -12,11 +12,11 @@ nav .links {
     padding-right: 20px;
     align-items: center;
     gap: 45px;
-    flex: 90%;
+    flex: 85%;
 }
 
 nav .pageTitle {
-    flex: 10%;
+    flex: 15%;
     margin-left: 20px;
     font-size: 28px;
 }
