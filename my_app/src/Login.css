@@ -6,12 +6,20 @@
     align-items:center;
 }
 
-.loginPage .label {
+.logoutPage {
+    height: 40vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:center;
+}
+
+.label {
     font-size: 18px;
     margin: 10px;
 }
 
-.loginPage button {
+button {
     background-color: rgb(6, 115, 174);
     color: white;
     font-weight: bold;
