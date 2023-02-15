@@ -4,8 +4,14 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Navbar } from "./Navbar";
 import "./App.css";
 import Login from "./Login";
+import MyPage from "./MyPage";
+import { useEffect } from "react";
+import Logout from "./Logout";
 
 const App = () => {
+  // useEffect(() => {
+  //   console.log(isAuth);
+  // })
   const [token, setToken] = useState(null);
   const [owner, setOwner] = useState("");
   const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
@@ -32,16 +38,21 @@ const App = () => {
   return (
     <div className="App">
       <Router>
-        <Navbar isAuth={isAuth}/>
+        <Navbar isAuth={isAuth} />
         <Routes>
+          <Route path="/" element={<MyPage />}></Route>
           <Route
             path="/login"
-            element={<Login 
-              owner={owner}
-              setOwner={setOwner}
-              setIsAuth={setIsAuth}
-              setToken={setToken} />}
+            element={
+              <Login
+                owner={owner}
+                setOwner={setOwner}
+                setIsAuth={setIsAuth}
+                setToken={setToken}
+              />
+            }
           ></Route>
+          <Route path="/logout" element={<Logout setIsAuth={setIsAuth}/>}></Route>
         </Routes>
       </Router>
     </div>
