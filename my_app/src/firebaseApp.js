@@ -3,12 +3,12 @@ import { getAuth, GithubAuthProvider } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCelqmReB7_w2pmEijlvmU6R-6L0zoQgr0",
-  authDomain: "blog-bf777.firebaseapp.com",
-  projectId: "blog-bf777",
-  storageBucket: "blog-bf777.appspot.com",
-  messagingSenderId: "557974602173",
-  appId: "1:557974602173:web:94b0c1168ecab6f82612d4",
+  apiKey: "AIzaSyC5qaozJWSNLErqmfSKDDCFFdxDqlmRa24",
+  authDomain: "waffle-teamb.firebaseapp.com",
+  projectId: "waffle-teamb",
+  storageBucket: "waffle-teamb.appspot.com",
+  messagingSenderId: "718709761680",
+  appId: "1:718709761680:web:20675c6d3ce57c2fecda15"
 };
 
 const app = initializeApp(firebaseConfig);
