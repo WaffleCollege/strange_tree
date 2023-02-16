@@ -2,19 +2,38 @@ nav {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 45px;
-    height: 50px;
-    background-color: rgb(245, 149, 31);
+    height: 10vh;
+    background-color: #282c34;
 }
 
-nav a {
+nav .links {
+    display: flex;
+    justify-content: right;
+    padding-right: 20px;
+    align-items: center;
+    gap: 45px;
+    flex: 85%;
+}
+
+nav .pageTitle {
+    flex: 15%;
+    margin-left: 20px;
+    font-size: 28px;
+}
+
+nav .pageTitle a {
+    text-decoration: none;
+    color: white;
+}
+
+nav .links a {
     color: white;
     text-decoration: none;
     font-weight: bold;
     transition: all 0.3s;
 }
 
-nav a:hover {
+nav .links a:hover {
     color: cadetblue;
 }
 
