@@ -10,7 +10,7 @@ const Button = () => {
 
   return (
     <button className="TreesHistory" onClick={button}>
-      Trees History
+      ステージ一覧
     </button>
   );
 };

@@ -4,7 +4,7 @@ import HistoryButton from "./HistoryButton";
 function History() {
   return (
     <div>
-      <h1>History</h1>
+      <h1>Stages</h1>
       <HistoryButton />
       <HistoryTreeSp />
     </div>
