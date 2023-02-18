@@ -1,0 +1,24 @@
+.sun {
+  background-image: url("https://i.ibb.co/qgp5fpp/sun-yellow1.png");
+  background-size: 250px 250px;
+  width: 250px;
+  height: 250px;
+  animation: 3s linear infinite rotation1;
+}
+
+@keyframes rotation1 {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.text {
+  padding-top: 110px;
+  vertical-align: middle;
+  font-weight: bold;
+  color: rgba(253, 4, 0, 0.795);
+  font-size: 15px;
+}

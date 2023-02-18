@@ -1,42 +1,42 @@
 nav {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 10vh;
-    background-color: #282c34;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;
+  background-color: #282c34;
 }
 
 nav .links {
-    display: flex;
-    justify-content: right;
-    padding-right: 20px;
-    align-items: center;
-    gap: 45px;
-    flex: 85%;
+  display: flex;
+  justify-content: right;
+  padding-right: 20px;
+  align-items: center;
+  gap: 45px;
+  flex: 85%;
 }
 
 nav .pageTitle {
-    flex: 15%;
-    margin-left: 20px;
-    font-size: 28px;
+  flex: 15%;
+  margin-left: 20px;
+  font-size: 28px;
 }
 
 nav .pageTitle a {
-    text-decoration: none;
-    color: white;
+  text-decoration: none;
+  color: white;
 }
 
 nav .links a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    transition: all 0.3s;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s;
 }
 
 nav .links a:hover {
-    color: cadetblue;
+  color: cadetblue;
 }
 
 nav svg {
-    margin-right: 5px;
+  margin-right: 5px;
 }
