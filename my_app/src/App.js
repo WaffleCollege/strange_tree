@@ -7,6 +7,8 @@ import Login from "./Login";
 import MyPage from "./MyPage";
 import { useEffect } from "react";
 import Logout from "./Logout";
+import History from "./History";
+import HistoryButton from "./HistoryButton";
 
 const App = () => {
   // useEffect(() => {
@@ -40,7 +42,10 @@ const App = () => {
       <Router>
         <Navbar isAuth={isAuth} />
         <Routes>
-          <Route path="/" element={<MyPage isAuth={isAuth}/>}></Route>
+          <Route
+            path="/"
+            element={<MyPage isAuth={isAuth} owner={owner} />}
+          ></Route>
           <Route
             path="/login"
             element={
@@ -52,7 +57,12 @@ const App = () => {
               />
             }
           ></Route>
-          <Route path="/logout" element={<Logout setIsAuth={setIsAuth}/>}></Route>
+          <Route
+            path="/logout"
+            element={<Logout setIsAuth={setIsAuth} />}
+          ></Route>
+          <Route path="/History" element={<History />}></Route>
+          <Route path="/" element={<HistoryButton />}></Route>
         </Routes>
       </Router>
     </div>
