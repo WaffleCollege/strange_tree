@@ -2,17 +2,18 @@ import React from "react";
 import "./Button.css";
 import { useNavigate } from "react-router-dom";
 
-const Button = () => {
+const Button = (props) => {
   const navigate = useNavigate();
   const button = () => {
-    navigate("/History");
+    navigate(props.specifyUrl);
   };
-
+  
   return (
-    <button className="TreesHistory" onClick={button}>
-      ステージ一覧
+    <button  onClick={button}>
+     {props.text}
     </button>
   );
 };
 
 export default Button;
+

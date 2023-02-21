@@ -5,7 +5,6 @@ import Tree from "./Tree.js";
 import Soucommit from "./Soucommit.js";
 import Button from "./Button.js";
 import Sun from "./Sun.js";
-import HistoryButton from "./HistoryButton.js";
 
 const MyPage = ({ isAuth, owner }) => {
   const navigate = useNavigate();
@@ -21,7 +20,7 @@ const MyPage = ({ isAuth, owner }) => {
 
       <Sun />
       <Tree owner={owner} />
-      <Button />
+      <Button specifyUrl="/Stage" text ="ステージ一覧"/>
       <Soucommit />
     </>
   );

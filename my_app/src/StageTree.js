@@ -1,7 +1,7 @@
 import React from "react";
-import "./HistoryTreeSp.css";
+import "./StageTree.css";
 
-function HistoryTreeSp() {
+function StageTree() {
   return (
     <div className="spring">
       <h2>Spring</h2>
@@ -16,4 +16,4 @@ function HistoryTreeSp() {
   );
 }
 
-export default HistoryTreeSp;
+export default StageTree;

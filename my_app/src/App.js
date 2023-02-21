@@ -7,8 +7,7 @@ import Login from "./Login";
 import MyPage from "./MyPage";
 import { useEffect } from "react";
 import Logout from "./Logout";
-import History from "./History";
-import HistoryButton from "./HistoryButton";
+import { onAuthSta } from "firebase/auth";
 
 const App = () => {
   // useEffect(() => {
@@ -61,8 +60,8 @@ const App = () => {
             path="/logout"
             element={<Logout setIsAuth={setIsAuth} />}
           ></Route>
-          <Route path="/History" element={<History />}></Route>
-          <Route path="/" element={<HistoryButton />}></Route>
+          <Route path="/Stage" element={<Stage />}></Route>
+          <Route path="/" element={<StageButton />}></Route>
         </Routes>
       </Router>
     </div>

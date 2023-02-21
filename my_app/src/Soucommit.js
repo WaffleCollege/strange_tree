@@ -1,7 +1,6 @@
 import React from "react";
 import "./Soucommit.css";
 function Soucommit() {
-  // let commit ;
 
   ////////////////////////////////メインツリーと同じ方法でコッミト数を表示する////////////////////////////////
   return (
