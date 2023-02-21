@@ -7,13 +7,8 @@ const Button = (props) => {
   const button = () => {
     navigate(props.specifyUrl);
   };
-  
-  return (
-    <button  onClick={button}>
-     {props.text}
-    </button>
-  );
+
+  return <button onClick={button}>{props.text}</button>;
 };
 
 export default Button;
-

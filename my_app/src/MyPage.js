@@ -20,7 +20,7 @@ const MyPage = ({ isAuth, owner }) => {
 
       <Sun />
       <Tree owner={owner} />
-      <Button specifyUrl="/Stage" text ="ステージ一覧"/>
+      <Button specifyUrl="/Stage" text="ステージ一覧" />
       <Soucommit />
     </>
   );

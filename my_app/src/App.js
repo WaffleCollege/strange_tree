@@ -7,6 +7,8 @@ import Login from "./Login";
 import MyPage from "./MyPage";
 import { useEffect } from "react";
 import Logout from "./Logout";
+import Stage from "./Stage";
+import Button from "./Button"
 import { onAuthSta } from "firebase/auth";
 
 const App = () => {
@@ -61,7 +63,7 @@ const App = () => {
             element={<Logout setIsAuth={setIsAuth} />}
           ></Route>
           <Route path="/Stage" element={<Stage />}></Route>
-          <Route path="/" element={<StageButton />}></Route>
+          <Route path="/" element={<Button />}></Route>
         </Routes>
       </Router>
     </div>

@@ -1,6 +1,7 @@
 import React from "react";
 import StageTree from "./StageTree";
 import Button from "./Button";
+
 function Stage() {
   return (
     <div>

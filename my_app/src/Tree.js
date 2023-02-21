@@ -41,7 +41,7 @@ const Tree = ({ owner }) => {
     fetch(`https://api.github.com/repos/${owner}/${i}/commits`)
     .then ((data)=>{
     let commits = data.map((ele) => ele.commit);//配列渡させる。
-    setCommitsuu((prev) => prev + commits.length);//非どうき４７さき
+    setCommitsuu((prev) => prev + commits.length);
     })
     }
     return commitsuu;//返ってくる順番とか聞く
