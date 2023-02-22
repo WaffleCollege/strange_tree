@@ -2,6 +2,7 @@ import { GithubAuthProvider, signInWithPopup } from "firebase/auth";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { auth, provider } from "./firebaseApp";
+import Button from "./Button";
 import "./Login.css";
 
 const Login = ({ owner, setOwner, setIsAuth, setToken }) => {
@@ -41,7 +42,7 @@ const Login = ({ owner, setOwner, setIsAuth, setToken }) => {
   return (
     <div className="loginPage">
       <div className="label">ログインして始める</div>
-      <button onClick={loginWithGithub}>Githubでログイン</button>
+      <Button function={loginWithGithub} text="Githubでログイン" />
     </div>
   );
 };

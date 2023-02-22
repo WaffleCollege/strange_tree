@@ -1,5 +1,6 @@
 import React from "react";
 import "./StageTree.css";
+import CommitInformation from "./CommitInformation";
 
 function StageTree() {
   return (
@@ -7,11 +8,8 @@ function StageTree() {
       <h2>Spring</h2>
       <img className="img" src="https://i.ibb.co/mFWQNCg/tree-seichou09.png" />
       {/* 保存情報から写真の引っ張って来る */}
-      <p className="infomation">
-        期間：〇月〇日～〇月〇日 コミット数：〇〇 連続コミット日数：〇日
-        アイテムゲット数：〇個；
-      </p>
-      {/* 情報の表示(期間中のコッミト数、連続コミット数) */}
+
+      <CommitInformation className="infomation" />
     </div>
   );
 }

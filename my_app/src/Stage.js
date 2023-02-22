@@ -6,7 +6,7 @@ function Stage() {
   return (
     <div>
       <h1>Stages</h1>
-      <Button specifyUrl="/" text ="← MyPage"/>
+      <Button specifyUrl="/" text ="← MyPage" />
       <StageTree />
     </div>
   );
