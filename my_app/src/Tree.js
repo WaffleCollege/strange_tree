@@ -32,7 +32,6 @@ const Tree = ({ owner }) => {
       // console.log(datas)//ok
       setRepoNames(datas.map((ele) => ele.name));
       console.log(repoNames);
-      return repoNames;
     })
     ////////////////コッミト数を取得する////////////////////////////////////////////////////////////////////////////////////////
     // console.log(`https://api.github.com/repos/${owner}/${setRepoNames}/commits`); //ここの[owner]は、Mypage(子)、APP(親)の孫 で段々に引っ張ってきた。基は
