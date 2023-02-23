@@ -17,8 +17,9 @@ const Tree = () => {
     "https://i.ibb.co/mFWQNCg/tree-seichou09.png",
   ]; //リンゴ
 
-  const [repoNames, setRepoNames] = useState([]); //()のなかはレポネームの初期値を設定
+  const [repoNames, setRepoNames] = useState([]);
   const [commits, setCommits] = useState(0);
+
   const [treeimg, setTreeimg] = useState("");
 
   // console.log(owner);
@@ -52,6 +53,7 @@ const Tree = () => {
         }
       });
   }, [repoNames]);
+
 
   //   ///////////////////////////////////表示する写真ゲットする////////////////////////////////////////
   // .then((allCommitNumber) => {

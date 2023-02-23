@@ -7,12 +7,14 @@ import Login from "./Login";
 import MyPage from "./MyPage";
 import Logout from "./Logout";
 import Stage from "./Stage";
+import WeeklyCommit from "./WeeklyCommit";
+
 
 const App = () => {
 
   const [token, setToken] = useState(null);
   const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
-
+  const [repoNames, setRepoNames] = useState([]);
   //サインインで取得したトークンでAPIにアクセス
   //     .then(() => {
   //       fetch(
@@ -39,7 +41,7 @@ const App = () => {
         <Routes>
           <Route
             path="/"
-            element={<MyPage isAuth={isAuth} token={token} />}
+            element={<MyPage isAuth={isAuth} />}
           ></Route>
           <Route
             path="/login"

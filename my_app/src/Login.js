@@ -37,7 +37,7 @@ const Login = ({setIsAuth, setToken }) => {
   return (
     <div className="loginPage">
       <div className="label">ログインして始める</div>
-      <Button function={loginWithGithub} text="Githubでログイン" />
+      <Button function = {loginWithGithub} text="Githubでログイン" />
     </div>
   );
 };
