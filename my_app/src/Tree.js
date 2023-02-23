@@ -2,8 +2,8 @@ import React from "react";
 import { useState } from "react";
 import "./Tree.css";
 
-const Tree = ({ owner }) => {
-  // いらすとやの木の写真
+const Tree = ({ owner,repoNames,setRepoNames}) => {
+  
   const trees = [
     "https://i.ibb.co/0QZCRFG/tree-seichou01.png", //種
     "https://i.ibb.co/0JtXMgs/tree-seichou02.png", //双葉
@@ -16,7 +16,7 @@ const Tree = ({ owner }) => {
     "https://i.ibb.co/mFWQNCg/tree-seichou09.png",
   ]; //リンゴ
 
-  const [repoNames, setRepoNames] = useState([]); //()のなかはレポネームの初期値を設定
+  // const [repoNames, setRepoNames] = useState([]); 
   const [commitsuu, setCommitsuu] = useState(0);
   const [treeimg, setTreeimg] = useState("");
 
@@ -29,7 +29,7 @@ const Tree = ({ owner }) => {
       return results.json();
     })
     .then((datas) => {
-      // console.log(datas)//ok
+      // console.log(datas)
       setRepoNames(datas.map((ele) => ele.name));
       console.log(repoNames);
     })
@@ -46,7 +46,7 @@ const Tree = ({ owner }) => {
           .then((data) => {
             // console.log(data);
             setCommitsuu(data.length); 
-            console.log(commitsuu)
+            // console.log(commitsuu)
             //配列をcommitについての情報だけにする
             // let commits = data.map((ele) => ele.commit);
             // console.log(commits);

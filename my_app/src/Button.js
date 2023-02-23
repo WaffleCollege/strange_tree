@@ -3,13 +3,7 @@ import "./Button.css";
 import { useNavigate } from "react-router-dom";
 
 const Button = (props) => {
-  const navigate = useNavigate();
-  const button = () => {
-    navigate(props.specifyUrl);
-    (props.function)()
-    };
-
-  return <button onClick={button}>{props.text}</button>;
+  return <button onClick={props.function}>{props.text}</button>;
 };
 
 export default Button;

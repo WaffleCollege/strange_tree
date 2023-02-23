@@ -8,8 +8,8 @@ import MyPage from "./MyPage";
 import { useEffect } from "react";
 import Logout from "./Logout";
 import Stage from "./Stage";
-import Button from "./Button"
 import { onAuthSta } from "firebase/auth";
+import WeeklyCommit from "./WeeklyCommit";
 
 const App = () => {
   // useEffect(() => {
@@ -18,7 +18,7 @@ const App = () => {
   const [token, setToken] = useState(null);
   const [owner, setOwner] = useState("");
   const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
-
+  const [repoNames, setRepoNames] = useState([]);
   //サインインで取得したトークンでAPIにアクセス
   //     .then(() => {
   //       fetch(
@@ -45,7 +45,13 @@ const App = () => {
         <Routes>
           <Route
             path="/"
-            element={<MyPage isAuth={isAuth} owner={owner} />}
+            element={
+            <MyPage
+             isAuth={isAuth}
+              owner={owner}  
+              repoNames={repoNames} 
+              setRepoNames={setRepoNames}
+              />}
           ></Route>
           <Route
             path="/login"
@@ -63,7 +69,8 @@ const App = () => {
             element={<Logout setIsAuth={setIsAuth} />}
           ></Route>
           <Route path="/Stage" element={<Stage />}></Route>
-          <Route path="/" element={<Button />}></Route>
+          
+          
         </Routes>
       </Router>
     </div>
