@@ -5,18 +5,12 @@ import { Navbar } from "./Navbar";
 import "./App.css";
 import Login from "./Login";
 import MyPage from "./MyPage";
-import { useEffect } from "react";
 import Logout from "./Logout";
 import Stage from "./Stage";
-import Button from "./Button"
-import { onAuthSta } from "firebase/auth";
 
 const App = () => {
-  // useEffect(() => {
-  //   console.log(isAuth);
-  // })
+
   const [token, setToken] = useState(null);
-  const [owner, setOwner] = useState("");
   const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
 
   //サインインで取得したトークンでAPIにアクセス
@@ -45,14 +39,13 @@ const App = () => {
         <Routes>
           <Route
             path="/"
-            element={<MyPage isAuth={isAuth} owner={owner} />}
+            element={<MyPage isAuth={isAuth} token={token} />}
           ></Route>
           <Route
             path="/login"
             element={
               <Login
-                owner={owner}
-                setOwner={setOwner}
+                isAuth={isAuth}
                 setIsAuth={setIsAuth}
                 setToken={setToken}
               />
@@ -63,7 +56,6 @@ const App = () => {
             element={<Logout setIsAuth={setIsAuth} />}
           ></Route>
           <Route path="/Stage" element={<Stage />}></Route>
-          <Route path="/" element={<Button />}></Route>
         </Routes>
       </Router>
     </div>

@@ -6,20 +6,19 @@ import CommitInformation from "./CommitInformation.js";
 import Button from "./Button.js";
 import Sun from "./Sun.js";
 
-const MyPage = ({ isAuth, owner }) => {
+const MyPage = ({ isAuth, token }) => {
   const navigate = useNavigate();
   useEffect(() => {
     if (!isAuth) {
       navigate("/login");
     }
   });
-  console.log("mypage");
   return (
     <>
       <h1>MyPage</h1>
 
       <Sun />
-      <Tree owner={owner} />
+      <Tree />
       <Button specifyUrl="/Stage" text="ステージ一覧" />
       <CommitInformation />
       

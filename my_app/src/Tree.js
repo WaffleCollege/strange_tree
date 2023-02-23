@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import "./Tree.css";
 
-const Tree = ({ token }) => {
+const Tree = () => {
   // いらすとやの木の写真
   const trees = [
     "https://i.ibb.co/0QZCRFG/tree-seichou01.png", //種
