@@ -1,3 +1,4 @@
+import { connectFirestoreEmulator } from "firebase/firestore";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import "./Tree.css";
@@ -31,18 +32,23 @@ const Tree = () => {
       .then((data) => {
         return data.json();
       })
-      .then((data) => {
-        if (!repoNames) {
-          setRepoNames(data.map((ele) => ele.name));
+      .then(async (data) => {
+        const names = data.map((ele) => ele.name);
+        if (!repoNames.length) {
+          setRepoNames(names);
         } else {
-          let commits = 0;
-          repoNames.map(async (repo) => {
-            const data = await fetch(
-              `https://api.github.com/repos/${owner}/${repo}/commits`
-            );
-            commits += data.length;
-          });
-          setCommits(commits);
+          const commitNums = await Promise.all(
+            repoNames.map(async (repo) => {
+              const data = await fetch(
+                `https://api.github.com/repos/${owner}/${repo}/commits`
+              ).then((data) => {
+                return data.json();
+              });
+              return data.length;
+            })
+          );
+          const allCommits = commitNums.reduce((acc, cur) => acc + cur, 0);
+          setCommits(allCommits);
         }
       });
   }, [repoNames]);
