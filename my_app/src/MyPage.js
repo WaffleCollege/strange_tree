@@ -6,12 +6,12 @@ import Sun from "./Sun.js";
 import WeeklyCommit from "./WeeklyCommit.js";
 
 
-const MyPage = ({ isAuth, token }) => {
+const MyPage = ({ isAuth, repoNames,setRepoNames}) => {
   const navigate = useNavigate();
   const move = () => {
   navigate("/Stage");
   };
-  
+
   useEffect(() => {
     if (!isAuth) {
       navigate("/login");
@@ -22,8 +22,7 @@ const MyPage = ({ isAuth, token }) => {
     <>
       <h1>MyPage</h1>
       <Sun />
-      <Tree />
-      <CommitInformation />
+      <Tree repoNames={repoNames} setRepoNames={setRepoNames}/>
       <Button function= {move}  text="ステージ一覧" />
       <WeeklyCommit  repoNames={repoNames} />
     </>

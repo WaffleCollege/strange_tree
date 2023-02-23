@@ -7,11 +7,8 @@ import Login from "./Login";
 import MyPage from "./MyPage";
 import Logout from "./Logout";
 import Stage from "./Stage";
-import WeeklyCommit from "./WeeklyCommit";
-
 
 const App = () => {
-
   const [token, setToken] = useState(null);
   const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
   const [repoNames, setRepoNames] = useState([]);
@@ -41,17 +38,17 @@ const App = () => {
         <Routes>
           <Route
             path="/"
-            element={<MyPage isAuth={isAuth} />}
+            element={
+              <MyPage
+                isAuth={isAuth}
+                repoNames={repoNames}
+                setRepoNames={setRepoNames}
+              />
+            }
           ></Route>
           <Route
             path="/login"
-            element={
-              <Login
-                isAuth={isAuth}
-                setIsAuth={setIsAuth}
-                setToken={setToken}
-              />
-            }
+            element={<Login setIsAuth={setIsAuth} setToken={setToken} />}
           ></Route>
           <Route
             path="/logout"

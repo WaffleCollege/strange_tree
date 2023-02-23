@@ -1,9 +1,8 @@
-import { connectFirestoreEmulator } from "firebase/firestore";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import "./Tree.css";
 
-const Tree = () => {
+const Tree = ({repoNames, setRepoNames}) => {
   // いらすとやの木の写真
   const trees = [
     "https://i.ibb.co/0QZCRFG/tree-seichou01.png", //種
@@ -17,7 +16,6 @@ const Tree = () => {
     "https://i.ibb.co/mFWQNCg/tree-seichou09.png",
   ]; //リンゴ
 
-  const [repoNames, setRepoNames] = useState([]);
   const [commits, setCommits] = useState(0);
 
   const [treeimg, setTreeimg] = useState("");
@@ -99,6 +97,7 @@ const Tree = () => {
         alt="tree"
       />
       <h1 className="monthtext">-{owner}の木-</h1>
+      <h2>{commits}</h2>
     </>
   );
 };
