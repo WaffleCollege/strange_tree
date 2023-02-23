@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import "./Tree.css";
 
-const Tree = ({ owner }) => {
+const Tree = ({ token }) => {
   // いらすとやの木の写真
   const trees = [
     "https://i.ibb.co/0QZCRFG/tree-seichou01.png", //種
@@ -17,48 +17,35 @@ const Tree = ({ owner }) => {
   ]; //リンゴ
 
   const [repoNames, setRepoNames] = useState([]); //()のなかはレポネームの初期値を設定
-  const [commitsuu, setCommitsuu] = useState(0);
+  const [commits, setCommits] = useState(0);
   const [treeimg, setTreeimg] = useState("");
 
   // console.log(owner);
 
   ///////////////////////////リポジトリ一覧取得　//////////////////////////////////////////////////////////
   //リポジトリ名の配列を取得(ownwr は取得済み)
-  fetch(`https://api.github.com/users/${owner}/repos`)
-    .then((results) => {
-      return results.json();
-    })
-    .then((datas) => {
-      // console.log(datas)//ok
-      setRepoNames(datas.map((ele) => ele.name));
-      console.log(repoNames);
-    })
-    ////////////////コッミト数を取得する////////////////////////////////////////////////////////////////////////////////////////
-    // console.log(`https://api.github.com/repos/${owner}/${setRepoNames}/commits`); //ここの[owner]は、Mypage(子)、APP(親)の孫 で段々に引っ張ってきた。基は
+  const owner = localStorage.getItem("owner");
 
-    .then(() => {
-      for (const i of repoNames) {
-        //repoNameはリポジトリ名が入った配列
-        fetch(`https://api.github.com/repos/${owner}/${i}/commits`)
-          .then((results) => {
-            return results.json();
-          })
-          .then((data) => {
-            // console.log(data);
-            setCommitsuu(data.length); 
-            console.log(commitsuu)
-            //配列をcommitについての情報だけにする
-            // let commits = data.map((ele) => ele.commit);
-            // console.log(commits);
-            // return commits;
-          // })
-          // .then((commits) => {
-          //   setCommitsuu((prev) => prev + commits.length); //配列の中身の数＝コッミト数　だから数を数える
-          //   // console.log(commitsuu);
+  useEffect(() => {
+    fetch(`https://api.github.com/users/${owner}/repos`)
+      .then((data) => {
+        return data.json();
+      })
+      .then((data) => {
+        if (!repoNames) {
+          setRepoNames(data.map((ele) => ele.name));
+        } else {
+          let commits = 0;
+          repoNames.map(async (repo) => {
+            const data = await fetch(
+              `https://api.github.com/repos/${owner}/${repo}/commits`
+            );
+            commits += data.length;
           });
-      }
-      return commitsuu;
-    });
+          setCommits(commits);
+        }
+      });
+  }, [repoNames]);
 
   //   ///////////////////////////////////表示する写真ゲットする////////////////////////////////////////
   // .then((allCommitNumber) => {
@@ -101,8 +88,9 @@ const Tree = ({ owner }) => {
       <img
         className="treeimg"
         src="https://i.ibb.co/rksbDMM/tree-seichou06.png"
+        alt="tree"
       />
-      <h1 className="monthtext">-{owner}の今月の木-</h1>
+      <h1 className="monthtext">-{owner}の木-</h1>
     </>
   );
 };
