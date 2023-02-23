@@ -33,9 +33,9 @@ const Tree = () => {
         return data.json();
       })
       .then(async (data) => {
-        const names = data.map((ele) => ele.name);
+        const _repoNames = data.map((ele) => ele.name);
         if (!repoNames.length) {
-          setRepoNames(names);
+          setRepoNames(_repoNames);
         } else {
           const commitNums = await Promise.all(
             repoNames.map(async (repo) => {
