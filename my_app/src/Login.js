@@ -5,18 +5,22 @@ import { auth, provider } from "./firebaseApp";
 import Button from "./Button";
 import "./Login.css";
 
-const Login = ({setIsAuth, setToken }) => {
+const Login = ({ setIsAuth, setToken }) => {
   const navigate = useNavigate();
   const loginWithGithub = async () => {
     const result = await signInWithPopup(auth, provider);
     setIsAuth(true);
+    const date = new Date();
+    const timeSt = date.toISOString();
     localStorage.setItem("owner", result._tokenResponse.screenName);
     localStorage.setItem("isAuth", true);
+    // localStorage.setItem("timeStamp", timeSt.substring(0, timeSt.length - 5));
+
     const credential = GithubAuthProvider.credentialFromResult(result);
     setToken(credential.accessToken);
     navigate("/");
   };
-  //   .then(() => {
+  // .then(() => {
   //         fetch(
   //           `https://api.github.com/users/${owner}/repos?per_page=100&page=1`,
   //           {
@@ -37,7 +41,7 @@ const Login = ({setIsAuth, setToken }) => {
   return (
     <div className="loginPage">
       <div className="label">ログインして始める</div>
-      <Button function = {loginWithGithub} text="Githubでログイン" />
+      <Button function={loginWithGithub} text="Githubでログイン" />
     </div>
   );
 };

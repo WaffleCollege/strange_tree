@@ -4,12 +4,13 @@ import Tree from "./Tree.js";
 import Button from "./Button.js";
 import Sun from "./Sun.js";
 import WeeklyCommit from "./WeeklyCommit.js";
+import { useState } from "react";
 
-
-const MyPage = ({ isAuth, repoNames,setRepoNames}) => {
+const MyPage = ({ isAuth, repoNames, setRepoNames }) => {
+  const [commits, setCommits] = useState(0);
   const navigate = useNavigate();
   const move = () => {
-  navigate("/Stage");
+    navigate("/Stage");
   };
 
   useEffect(() => {
@@ -22,9 +23,14 @@ const MyPage = ({ isAuth, repoNames,setRepoNames}) => {
     <>
       <h1>MyPage</h1>
       <Sun />
-      <Tree repoNames={repoNames} setRepoNames={setRepoNames}/>
-      <Button function= {move}  text="ステージ一覧" />
-      <WeeklyCommit  repoNames={repoNames} />
+      <Tree
+        repoNames={repoNames}
+        setRepoNames={setRepoNames}
+        commits={commits}
+        setCommits={setCommits}
+      />
+      <Button function={move} text="ステージ一覧" />
+      <WeeklyCommit repoNames={repoNames} commits={commits} />
     </>
   );
 };
