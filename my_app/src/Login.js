@@ -1,19 +1,20 @@
 import { GithubAuthProvider, signInWithPopup } from "firebase/auth";
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth, provider } from "./firebaseApp";
 import Button from "./Button";
 import "./Login.css";
 
-const Login = ({setIsAuth, setToken }) => {
+const Login = ({setIsAuth, setToken, token }) => {
   const navigate = useNavigate();
   const loginWithGithub = async () => {
     const result = await signInWithPopup(auth, provider);
+    console.log(result);
     setIsAuth(true);
     localStorage.setItem("owner", result._tokenResponse.screenName);
     localStorage.setItem("isAuth", true);
-    const credential = GithubAuthProvider.credentialFromResult(result);
-    setToken(credential.accessToken);
+    const oauthToken = result._tokenResponse.oauthAccessToken;
+    setToken(oauthToken);
     navigate("/");
   };
   //   .then(() => {

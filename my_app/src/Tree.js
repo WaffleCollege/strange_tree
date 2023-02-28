@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import "./Tree.css";
 
-const Tree = ({repoNames, setRepoNames}) => {
+const Tree = ({repoNames, setRepoNames, token}) => {
   // いらすとやの木の写真
   const trees = [
     "https://i.ibb.co/0QZCRFG/tree-seichou01.png", //種
@@ -26,8 +26,17 @@ const Tree = ({repoNames, setRepoNames}) => {
   //リポジトリ名の配列を取得(ownwr は取得済み)
   const owner = localStorage.getItem("owner");
 
+
   useEffect(() => {
-    fetch(`https://api.github.com/users/${owner}/repos`)
+    fetch(
+          `https://api.github.com/users/${owner}/repos`,
+          {
+            headers: {
+              Authorization: `token ${token}`,
+              Accept: "application / vnd.github.v3 + json",
+            },
+          }
+        )
       .then((data) => {
         return data.json();
       })
@@ -97,7 +106,6 @@ const Tree = ({repoNames, setRepoNames}) => {
         alt="tree"
       />
       <h1 className="monthtext">-{owner}の木-</h1>
-      <h2>{commits}</h2>
     </>
   );
 };

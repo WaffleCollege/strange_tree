@@ -41,6 +41,7 @@ const App = () => {
             element={
               <MyPage
                 isAuth={isAuth}
+                token={token}
                 repoNames={repoNames}
                 setRepoNames={setRepoNames}
               />
@@ -48,7 +49,7 @@ const App = () => {
           ></Route>
           <Route
             path="/login"
-            element={<Login setIsAuth={setIsAuth} setToken={setToken} />}
+            element={<Login setIsAuth={setIsAuth} setToken={setToken} token={token} />}
           ></Route>
           <Route
             path="/logout"
