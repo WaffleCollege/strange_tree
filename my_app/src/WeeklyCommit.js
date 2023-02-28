@@ -6,7 +6,6 @@ const WeeklyCommit = ({ repoNames, commits }) => {
   const [lastWeeklyCommits, setLastWeeklyCommits] = useState(0);
 
   const owner = localStorage.getItem("owner");
-
   useEffect(() => {
     for (const i of repoNames) {
       fetch(`https://api.github.com/repos/${owner}/${i}/stats/participation`)
@@ -14,16 +13,31 @@ const WeeklyCommit = ({ repoNames, commits }) => {
           return results.json();
         })
         .then((datas) => {
-          console.log(datas);
           return datas.all;
         })
-        .then((allDatas) => {
-          setWeeklyCommits(allDatas[allDatas.length - 1]);
-          setLastWeeklyCommits(allDatas[allDatas.length - 2]);
+        .then((all) => {
+          setLastWeeklyCommits((prev) => prev + all[all.length - 2]);
+        });
+    }
+  }, []);
+
+  useEffect(() => {
+    setWeeklyCommits(commits);
+    for (const i of repoNames) {
+      fetch(`https://api.github.com/repos/${owner}/${i}/stats/participation`)
+        .then((results) => {
+          return results.json();
+        })
+        .then((datas) => {
+          return datas.all;
+        })
+        .then((all) => {
+          all.pop(); //今週以外の配列
+          const beforeCommits = all.reduce((acc, cur) => acc + cur, 0);
+          setWeeklyCommits((prev) => prev - beforeCommits);
         });
     }
   }, [commits]);
-  console.log(weeklyCommits);
 
   return (
     <div>

@@ -38,7 +38,7 @@ const Tree = ({ repoNames, setRepoNames, commits, setCommits }) => {
           const commitNums = await Promise.all(
             repoNames.map(async (repo) => {
               const data = await fetch(
-                `https://api.github.com/repos/${owner}/${repo}/commits?since=2023-01-24T09:00:45Z`
+                `https://api.github.com/repos/${owner}/${repo}/commits?since=2023-01-26T09:00:45Z`
               ).then((data) => {
                 return data.json();
               });
