@@ -2,7 +2,9 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import "./Tree.css";
 
-const Tree = ({ repoNames, setRepoNames, commits, setCommits }) => {
+
+const Tree = ({ repoNames, setRepoNames, commits, setCommits, token }) => {
+
   const trees = [
     "https://i.ibb.co/0QZCRFG/tree-seichou01.png", //種
     "https://i.ibb.co/0JtXMgs/tree-seichou02.png", //双葉
@@ -22,8 +24,13 @@ const Tree = ({ repoNames, setRepoNames, commits, setCommits }) => {
   // ?since=${timeStamp}Z
   // 後ほど行う
 
+
   useEffect(() => {
-    fetch(`https://api.github.com/users/${owner}/repos`)
+    fetch(`https://api.github.com/users/${owner}/repos`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((data) => {
         return data.json();
       })
@@ -32,7 +39,7 @@ const Tree = ({ repoNames, setRepoNames, commits, setCommits }) => {
         setRepoNames(_repoNames);
         console.log(repoNames);
       });
-  }, []);
+  }, [repoNames, token]);
 
 
   useEffect(() => {
@@ -79,7 +86,6 @@ const Tree = ({ repoNames, setRepoNames, commits, setCommits }) => {
     <>
       <img className="treeimg" src={treeimg} alt="tree" />
       <h1 className="monthtext">-{owner}の木-</h1>
-      <h2>{commits}</h2>
     </>
   );
 };

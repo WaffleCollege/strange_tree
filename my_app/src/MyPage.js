@@ -6,8 +6,10 @@ import Sun from "./Sun.js";
 import WeeklyCommit from "./WeeklyCommit.js";
 import { useState } from "react";
 
-const MyPage = ({ isAuth, repoNames, setRepoNames }) => {
+
+const MyPage = ({ isAuth, token, repoNames, setRepoNames }) => {
   const [commits, setCommits] = useState(0);
+
   const navigate = useNavigate();
   const move = () => {
     navigate("/Stage");
@@ -28,9 +30,11 @@ const MyPage = ({ isAuth, repoNames, setRepoNames }) => {
         setRepoNames={setRepoNames}
         commits={commits}
         setCommits={setCommits}
+        token={token}
       />
       <Button function={move} text="ステージ一覧" />
       <WeeklyCommit repoNames={repoNames} commits={commits} />
+
     </>
   );
 };
