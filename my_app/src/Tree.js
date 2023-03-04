@@ -2,8 +2,9 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import "./Tree.css";
 
-const Tree = ({ repoNames, setRepoNames, token }) => {
-  // いらすとやの木の写真
+
+const Tree = ({ repoNames, setRepoNames, commits, setCommits, token }) => {
+
   const trees = [
     "https://i.ibb.co/0QZCRFG/tree-seichou01.png", //種
     "https://i.ibb.co/0JtXMgs/tree-seichou02.png", //双葉
@@ -16,15 +17,13 @@ const Tree = ({ repoNames, setRepoNames, token }) => {
     "https://i.ibb.co/mFWQNCg/tree-seichou09.png",
   ]; //リンゴ
 
-  const [commits, setCommits] = useState(0);
-
   const [treeimg, setTreeimg] = useState("");
 
-
-  ///////////////////////////リポジトリ一覧取得　//////////////////////////////////////////////////////////
-  //リポジトリ名の配列を取得(ownwr は取得済み)
   const owner = localStorage.getItem("owner");
-  console.log(token);
+  // const timeStamp = localStorage.getItem("timeStamp");
+  // ?since=${timeStamp}Z
+  // 後ほど行う
+
 
   useEffect(() => {
     fetch(`https://api.github.com/users/${owner}/repos`, {
@@ -36,69 +35,56 @@ const Tree = ({ repoNames, setRepoNames, token }) => {
         return data.json();
       })
       .then(async (data) => {
-        const _repoNames = data.map((ele) => ele.name);
-        if (!repoNames.length) {
-          setRepoNames(_repoNames);
-        } else {
-          const commitNums = await Promise.all(
-            repoNames.map(async (repo) => {
-              const data = await fetch(
-                `https://api.github.com/repos/${owner}/${repo}/commits`
-              ).then((data) => {
-                return data.json();
-              });
-              return data.length;
-            })
-          );
-          const allCommits = commitNums.reduce((acc, cur) => acc + cur, 0);
-          setCommits(allCommits);
-        }
+        const _repoNames = await data.map((ele) => ele.name);
+        setRepoNames(_repoNames);
+        console.log(repoNames);
       });
   }, [repoNames, token]);
 
-  //   ///////////////////////////////////表示する写真ゲットする////////////////////////////////////////
-  // .then((allCommitNumber) => {
-  //   if (allCommitNumber <= 5) {
-  //      setTreeimg(trees[0]);
-  //      return
 
-  //   }
-  //  else if (5 < allCommitNumber && allCommitNumber <= 10) {
-  //   setTreeimg = trees[1];
-  //   return setTreeimg;
-  // } else if (10 < allCommitNumber && allCommitNumber <= 19) {
-  //   setTreeimg = trees[2];
-  //   return setTreeimg;
-  // } else if (19 < allCommitNumber && allCommitNumber <= 25) {
-  //   setTreeimg = trees[3];
-  //   return setTreeimg;
-  // } else if (25 < allCommitNumber && allCommitNumber <= 39) {
-  //   setTreeimg = trees[4];
-  //   return setTreeimg;
-  // } else if (39 < allCommitNumber && allCommitNumber <= 50) {
-  //   setTreeimg = trees[5];
-  //   return setTreeimg;
-  // } else if (50 < allCommitNumber && allCommitNumber <= 67) {
-  //   setTreeimg = trees[6];
-  //   return setTreeimg;
-  // } else if (67 < allCommitNumber && allCommitNumber <= 88) {
-  //   setTreeimg = trees[7];
-  //   return setTreeimg;
-  // } else if (88 < allCommitNumber && allCommitNumber <= 105) {
-  //   setTreeimg = trees[8];
-  //   return setTreeimg;
-  // }
-  // });
+  useEffect(() => {
+    let allcommits = 0;
+    for (const i of repoNames)
+      fetch(
+        `https://api.github.com/repos/${owner}/${i}/commits?since=2023-01-26T09:00:45Z`
+      )
+        .then((data) => {
+          return data.json();
+        })
+        .then((data) => {
+          allcommits += data.length;
+        })
+        .then(() => {
+          setCommits(allcommits);
+        });
+        console.log(allcommits);
+  }, [repoNames]);
 
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+ 
+  useEffect(() => {
+    if (commits <= 20) {
+      setTreeimg(trees[0]);
+    } else if (20 < commits && commits <= 45) {
+      setTreeimg(trees[1]);
+    } else if (45 < commits && commits <= 80) {
+      setTreeimg(trees[2]);
+    } else if (80 < commits && commits <= 115) {
+      setTreeimg(trees[3]);
+    } else if (115 < commits && commits <= 140) {
+      setTreeimg(trees[4]);
+    } else if (140 < commits && commits <= 170) {
+      setTreeimg(trees[5]);
+    } else if (170 < commits && commits <= 210) {
+      setTreeimg(trees[6]);
+    } else if (210 < commits && commits <= 250) {
+      setTreeimg(trees[7]);
+    } else if (250 < commits && commits <= 300) {
+      setTreeimg(trees[8]);
+    }
+  }, [commits]);
   return (
     <>
-      <img
-        className="treeimg"
-        src="https://i.ibb.co/rksbDMM/tree-seichou06.png"
-        alt="tree"
-      />
+      <img className="treeimg" src={treeimg} alt="tree" />
       <h1 className="monthtext">-{owner}の木-</h1>
     </>
   );

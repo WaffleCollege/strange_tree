@@ -11,8 +11,11 @@ const Login = ({ setIsAuth, setToken }) => {
     const credential = GithubAuthProvider.credentialFromResult(result);
     setToken(credential.accessToken);
     setIsAuth(true);
+    const date = new Date();
+    const timeSt = date.toISOString();
     localStorage.setItem("owner", result._tokenResponse.screenName);
     localStorage.setItem("isAuth", true);
+    // localStorage.setItem("timeStamp", timeSt.substring(0, timeSt.length - 5));
     navigate("/");
   };
 
