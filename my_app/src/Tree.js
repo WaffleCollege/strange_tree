@@ -3,7 +3,6 @@ import { useState } from "react";
 import "./Tree.css";
 
 const Tree = ({ repoNames, setRepoNames, commits, setCommits }) => {
-  // いらすとやの木の写真
   const trees = [
     "https://i.ibb.co/0QZCRFG/tree-seichou01.png", //種
     "https://i.ibb.co/0JtXMgs/tree-seichou02.png", //双葉
@@ -18,8 +17,6 @@ const Tree = ({ repoNames, setRepoNames, commits, setCommits }) => {
 
   const [treeimg, setTreeimg] = useState("");
 
-  ///////////////////////////リポジトリ一覧取得　//////////////////////////////////////////////////////////
-  //リポジトリ名の配列を取得(ownwr は取得済み)
   const owner = localStorage.getItem("owner");
   // const timeStamp = localStorage.getItem("timeStamp");
   // ?since=${timeStamp}Z
@@ -31,28 +28,32 @@ const Tree = ({ repoNames, setRepoNames, commits, setCommits }) => {
         return data.json();
       })
       .then(async (data) => {
-        const _repoNames = data.map((ele) => ele.name);
-        if (!repoNames.length) {
-          setRepoNames(_repoNames);
-        } else {
-          const commitNums = await Promise.all(
-            repoNames.map(async (repo) => {
-              const data = await fetch(
-                `https://api.github.com/repos/${owner}/${repo}/commits?since=2023-01-26T09:00:45Z`
-              ).then((data) => {
-                return data.json();
-              });
-              console.log(data);
-              return data.length;
-            })
-          );
-          const allCommits = commitNums.reduce((acc, cur) => acc + cur, 0);
-          setCommits(allCommits);
-        }
+        const _repoNames = await data.map((ele) => ele.name);
+        setRepoNames(_repoNames);
+        console.log(repoNames);
       });
+  }, []);
+
+
+  useEffect(() => {
+    let allcommits = 0;
+    for (const i of repoNames)
+      fetch(
+        `https://api.github.com/repos/${owner}/${i}/commits?since=2023-01-26T09:00:45Z`
+      )
+        .then((data) => {
+          return data.json();
+        })
+        .then((data) => {
+          allcommits += data.length;
+        })
+        .then(() => {
+          setCommits(allcommits);
+        });
+        console.log(allcommits);
   }, [repoNames]);
 
-  //コッミト数に応じて変化する
+ 
   useEffect(() => {
     if (commits <= 20) {
       setTreeimg(trees[0]);
