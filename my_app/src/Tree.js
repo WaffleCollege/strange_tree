@@ -2,9 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import "./Tree.css";
 
-
 const Tree = ({ repoNames, setRepoNames, commits, setCommits, token }) => {
-
   const trees = [
     "https://i.ibb.co/0QZCRFG/tree-seichou01.png", //種
     "https://i.ibb.co/0JtXMgs/tree-seichou02.png", //双葉
@@ -23,8 +21,7 @@ const Tree = ({ repoNames, setRepoNames, commits, setCommits, token }) => {
   // const timeStamp = localStorage.getItem("timeStamp");
   // ?since=${timeStamp}Z
   // 後ほど行う
-
-
+  ////////reponameの取得
   useEffect(() => {
     fetch(`https://api.github.com/users/${owner}/repos`, {
       headers: {
@@ -39,8 +36,8 @@ const Tree = ({ repoNames, setRepoNames, commits, setCommits, token }) => {
         setRepoNames(_repoNames);
         console.log(repoNames);
       });
-  }, [repoNames, token]);
-
+    console.log(repoNames);
+  }, [token]);
 
   useEffect(() => {
     let allcommits = 0;
@@ -53,14 +50,12 @@ const Tree = ({ repoNames, setRepoNames, commits, setCommits, token }) => {
         })
         .then((data) => {
           allcommits += data.length;
-        })
-        .then(() => {
+          console.log(allcommits);
           setCommits(allcommits);
         });
-        console.log(allcommits);
+    console.log(allcommits);
   }, [repoNames]);
 
- 
   useEffect(() => {
     if (commits <= 20) {
       setTreeimg(trees[0]);

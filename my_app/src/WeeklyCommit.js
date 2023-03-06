@@ -6,43 +6,58 @@ const WeeklyCommit = ({ repoNames, commits }) => {
   const [lastWeeklyCommits, setLastWeeklyCommits] = useState(0);
 
   const owner = localStorage.getItem("owner");
-  useEffect(() => {
-    for (const i of repoNames) {
-      fetch(`https://api.github.com/repos/${owner}/${i}/stats/participation`)
-        .then((results) => {
-          return results.json();
-        })
-        .then((datas) => {
-          return datas.all;
-        })
-        .then((all) => {
-          setLastWeeklyCommits((prev) => prev + all[all.length - 2]);
-        });
-    }
-  }, []);
+
+
+
+  /////先週のコミット数
+ 
+
+  // useEffect(() => {
+  //   for (const i of repoNames) {
+  //     fetch(`https://api.github.com/repos/${owner}/${i}/stats/commit_activity`)
+  //       .then((results) => {
+  //         return results.json();
+  //       })
+  //       .then((datas) => {
+  //         console.log(datas)
+  //         console.log(datas[datas.length - 2]);
+  //         return datas[datas.length - 2];
+  //       })
+  //       .then((lastWeeklydata) => {
+  //         const lastWeekly = lastWeeklydata;
+  //         console.log(lastWeekly.total);
+  //         setLastWeeklyCommits(lastWeekly.total);
+  //       });
+  //   }
+  // }, []);
+
+  ////今週のコミット数
+  
 
   useEffect(() => {
-    setWeeklyCommits(commits);
     for (const i of repoNames) {
-      fetch(`https://api.github.com/repos/${owner}/${i}/stats/participation`)
+      fetch(`https://api.github.com/repos/${owner}/${i}/stats/commit_activity`)
         .then((results) => {
           return results.json();
         })
         .then((datas) => {
-          return datas.all;
+          console.log(datas)
+          console.log(datas[datas.length - 1]);
+          return datas[datas.length - 1];
         })
-        .then((all) => {
-          all.pop(); //今週以外の配列
-          const beforeCommits = all.reduce((acc, cur) => acc + cur, 0);
-          setWeeklyCommits((prev) => prev - beforeCommits);
+        .then((weeklydata) => {
+          const weekly = weeklydata;
+          console.log(weekly.total);
+          setWeeklyCommits(weekly.total);
         });
     }
   }, [commits]);
 
+
   return (
     <div>
       <p>今週のコミット数『{weeklyCommits}』</p>
-      <p>先週のコミット数『{lastWeeklyCommits}』</p>
+      {/* <p>先週のコミット数『{lastWeeklyCommits}』</p> */}
     </div>
   );
 };
