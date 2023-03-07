@@ -34,7 +34,7 @@ const Tree = ({ repoNames, setRepoNames, commits, setCommits, token }) => {
         setRepoNames(_repoNames);
         console.log(repoNames);
       });
-  }, [repoNames]);
+  }, []);
 
   useEffect(() => {
     fetch("http://localhost:8080/tree")

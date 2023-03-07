@@ -15,7 +15,7 @@ app.use(
 app.use(express.json());
 
 app.get("/tree", (req, res) => {
-  pool.query("select * from tree", (error, results) => {
+  pool.query("select * from trees", (error, results) => {
     if (error) throw error;
     return res.status(200).json(results.rows);
   });
