@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import "./Tree.css";
 
+
 const Tree = ({ repoNames, setRepoNames, commits, setCommits, token }) => {
   const trees = [
     "https://i.ibb.co/0QZCRFG/tree-seichou01.png", //種
@@ -17,17 +18,14 @@ const Tree = ({ repoNames, setRepoNames, commits, setCommits, token }) => {
 
   const [treeimg, setTreeimg] = useState("");
 
+
   const owner = localStorage.getItem("owner");
   // const timeStamp = localStorage.getItem("timeStamp");
   // ?since=${timeStamp}Z
   // 後ほど行う
   ////////reponameの取得
   useEffect(() => {
-    fetch(`https://api.github.com/users/${owner}/repos`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
+    fetch(`https://api.github.com/users/${owner}/repos`)
       .then((data) => {
         return data.json();
       })
@@ -36,8 +34,22 @@ const Tree = ({ repoNames, setRepoNames, commits, setCommits, token }) => {
         setRepoNames(_repoNames);
         console.log(repoNames);
       });
-    console.log(repoNames);
-  }, [token]);
+  }, [repoNames]);
+
+  useEffect(() => {
+    fetch("http://localhost:8080/tree")
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      });
+  }, []);
+
+  //   ///////////////////////////////////表示する写真ゲットする////////////////////////////////////////
+  // .then((allCommitNumber) => {
+  //   if (allCommitNumber <= 5) {
+  //      setTreeimg(trees[0]);
+  //      return
+
 
   useEffect(() => {
     let allcommits = 0;
