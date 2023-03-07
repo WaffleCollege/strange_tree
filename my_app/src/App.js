@@ -12,6 +12,7 @@ const App = () => {
   const [token, setToken] = useState(null);
   const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
   const [repoNames, setRepoNames] = useState([]);
+  const [avatar, setAvatar] = useState(null);
   //サインインで取得したトークンでAPIにアクセス
   //     .then(() => {
   //       fetch(
@@ -34,7 +35,7 @@ const App = () => {
   return (
     <div className="App">
       <Router>
-        <Navbar isAuth={isAuth} />
+        <Navbar isAuth={isAuth} avatar={avatar} setAvatar={setAvatar}/>
         <Routes>
           <Route
             path="/"

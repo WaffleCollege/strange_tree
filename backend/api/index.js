@@ -21,6 +21,13 @@ app.get("/tree", (req, res) => {
   });
 });
 
+app.get("/users", (req, res) => {
+  pool.query("select * from users", (error, results) => {
+    if (error) throw error;
+    return res.status(200).json(results.rows);
+  });
+});
+
 app.post("/users", (req, res) => {
   const { username, email, avatar, first_login, tree_id } = req.body;
   pool.query(

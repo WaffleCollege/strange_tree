@@ -7,7 +7,8 @@ import {
   faArrowRightToBracket,
 } from "@fortawesome/free-solid-svg-icons";
 
-export const Navbar = ({ isAuth }) => {
+export const Navbar = ({ isAuth, avatar, setAvatar }) => {
+  const owner = localStorage.getItem("owner")
   return (
     <nav>
       <div className="pageTitle">
@@ -15,8 +16,8 @@ export const Navbar = ({ isAuth }) => {
       </div>
       <div className="links">
         <Link to="/">
-          <FontAwesomeIcon icon={faHouse} />
-          マイページ
+          <img src={localStorage.getItem("avatar")} alt="avatar" className="avatar"/>
+          {owner}
         </Link>
         {isAuth ? (
           <Link to="/logout">
