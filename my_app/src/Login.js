@@ -34,9 +34,12 @@ const Login = ({ setIsAuth, setToken }) => {
     postUserData("http://localhost:8080/users", data);
     setToken(credential.accessToken);
     setIsAuth(true);
+    const date = new Date();
+    const timeSt = date.toISOString();
     localStorage.setItem("owner", result._tokenResponse.screenName);
     localStorage.setItem("isAuth", true);
-    localStorage.setItem("token", credential.accessToken);
+    // localStorage.setItem("timeStamp", timeSt.substring(0, timeSt.length - 5));
+
     navigate("/");
   };
 
