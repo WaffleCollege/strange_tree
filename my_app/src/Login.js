@@ -4,7 +4,7 @@ import { auth, provider } from "./firebaseApp";
 import Button from "./Button";
 import "./Login.css";
 
-const Login = ({ setIsAuth, setToken }) => {
+const Login = ({ setIsAuth, setToken, setAvatar }) => {
   const navigate = useNavigate();
   const postUserData = (url, data) => {
     fetch(url, {
@@ -38,6 +38,7 @@ const Login = ({ setIsAuth, setToken }) => {
     postUserData("http://localhost:8080/users", data);
     setToken(credential.accessToken);
     setIsAuth(true);
+    setAvatar(result.user.photoURL);
     localStorage.setItem("owner", result._tokenResponse.screenName);
     localStorage.setItem("isAuth", true);
     localStorage.setItem("avatar", result.user.photoURL);
