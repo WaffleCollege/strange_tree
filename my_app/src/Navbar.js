@@ -4,7 +4,7 @@ import "./Navbar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightToBracket } from "@fortawesome/free-solid-svg-icons";
 
-export const Navbar = ({ isAuth, avatar, setAvatar }) => {
+export const Navbar = ({ isAuth, avatar }) => {
   const owner = localStorage.getItem("owner");
   return (
     <nav>
@@ -15,7 +15,7 @@ export const Navbar = ({ isAuth, avatar, setAvatar }) => {
         {isAuth ? (
           <Link to="/">
             <img
-              src={localStorage.getItem("avatar")}
+              src={avatar}
               alt="avatar"
               className="avatar"
             />

@@ -12,7 +12,7 @@ const App = () => {
   const [token, setToken] = useState(null);
   const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
   const [repoNames, setRepoNames] = useState([]);
-  const [avatar, setAvatar] = useState(null);
+  const [avatar, setAvatar] = useState(localStorage.getItem("avatar"));
   //サインインで取得したトークンでAPIにアクセス
   //     .then(() => {
   //       fetch(
@@ -50,7 +50,7 @@ const App = () => {
           ></Route>
           <Route
             path="/login"
-            element={<Login setIsAuth={setIsAuth} setToken={setToken} token={token} />}
+            element={<Login setIsAuth={setIsAuth} setToken={setToken} setAvatar={setAvatar} />}
           ></Route>
           <Route
             path="/logout"
