@@ -1,5 +1,5 @@
 const Pool = require("pg").Pool;
-const connectionString = "postgres://postgres:haijn238jmkval@db.onnpikzsjidabywbmuna.supabase.co:6543/treedb"
+const connectionString = "postgres://postgres:haijn238jmkval@db.onnpikzsjidabywbmuna.supabase.co:6543/postgres"
 
 const pool = new Pool({
     connectionString,
