@@ -52,20 +52,21 @@ const Tree = ({ repoNames, setRepoNames, commits, setCommits, token }) => {
 
 
   useEffect(() => {
-    let allcommits = 0;
-    for (const i of repoNames)
-      fetch(
-        `https://api.github.com/repos/${owner}/${i}/commits?since=2023-01-26T09:00:45Z`
-      )
-        .then((data) => {
-          return data.json();
+    const countCommits = async () => {
+      const commitNums = await Promise.all(
+        repoNames.map(async (repo) => {
+          const data = await fetch(
+            `https://api.github.com/repos/${owner}/${repo}/commits?since=2023-01-26T09:00:45Z`
+          ).then((data) => {
+            return data.json();
+          });
+          return data.length;
         })
-        .then((data) => {
-          allcommits += data.length;
-          console.log(allcommits);
-          setCommits(allcommits);
-        });
-    console.log(allcommits);
+      );
+      const allCommits = commitNums.reduce((acc, cur) => acc + cur, 0);
+      setCommits(allCommits);
+    };
+    countCommits();
   }, [repoNames]);
 
   useEffect(() => {

@@ -51,16 +51,12 @@ const WeeklyCommit = ({ repoNames, commits }) => {
             return results.json();
           })
           .then((datas) => {
-            console.log(datas[datas.length - 1]);
             return datas[datas.length - 1];
           });
-        console.log(data["total"]);
         return data["total"];
       })
     );
-      console.log(commitsNumsArray);
       const weekly = commitsNumsArray.reduce((acc,cur)=> acc+cur,0);
-      console.log(weekly);
       setWeeklyCommits(weekly);
   }
   getWeeklyCommits();
