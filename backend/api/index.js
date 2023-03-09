@@ -16,7 +16,6 @@ app.use(express.json());
 
 app.get("/tree", (req, res) => {
   pool.query("select * from trees", (error, results) => {
-    console.log("gettree: ", results);
     if (error) throw error;
     return res.status(200).json(results.rows);
   });
@@ -24,7 +23,6 @@ app.get("/tree", (req, res) => {
 
 app.get("/users", (req, res) => {
   pool.query("select * from users", (error, results) => {
-    console.log("getusers: ", results);
     if (error) throw error;
     return res.status(200).json(results.rows);
   });
