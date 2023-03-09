@@ -7,52 +7,64 @@ const WeeklyCommit = ({ repoNames, commits }) => {
 
   const owner = localStorage.getItem("owner");
 
-
-
   /////先週のコミット数
- 
 
   // useEffect(() => {
-  //   for (const i of repoNames) {
-  //     fetch(`https://api.github.com/repos/${owner}/${i}/stats/commit_activity`)
-  //       .then((results) => {
-  //         return results.json();
-  //       })
-  //       .then((datas) => {
-  //         console.log(datas)
-  //         console.log(datas[datas.length - 2]);
-  //         return datas[datas.length - 2];
-  //       })
-  //       .then((lastWeeklydata) => {
-  //         const lastWeekly = lastWeeklydata;
-  //         console.log(lastWeekly.total);
-  //         setLastWeeklyCommits(lastWeekly.total);
+  
+  //   async function getLastWeeklyCommits () {
+  //     const commitsArray =  await Promise.all(
+  //       repoNames.map(async (names) => {
+  //         const datas = await fetch(
+  //           `https://api.github.com/repos/${owner}/${names}/stats/commit_activity`
+  //         )
+  //           .then((results) => {
+  //             return results.json();
+  //           })
+  //           .then((datas) => {
+  //             console.log(datas[datas.length - 2]);
+  //             return datas[datas.length - 2];
+  //           }).then((datas)=>{
+  //            console.log(datas["total"]);
+  //           return datas["total"];
   //       });
+  //       })
+  //     );
+  //       console.log(commitsArray);
+  //       const lastWeekly = commitsArray.reduce((acc,cur)=> acc+cur,0);
+  //       console.log(lastWeekly);
+  //       setLastWeeklyCommits(lastWeekly);
   //   }
+  //   getLastWeeklyCommits();
   // }, []);
 
   ////今週のコミット数
+
+  useEffect( () => {
   
-
-  useEffect(() => {
-    for (const i of repoNames) {
-      fetch(`https://api.github.com/repos/${owner}/${i}/stats/commit_activity`)
-        .then((results) => {
-          return results.json();
-        })
-        .then((datas) => {
-          console.log(datas)
-          console.log(datas[datas.length - 1]);
-          return datas[datas.length - 1];
-        })
-        .then((weeklydata) => {
-          const weekly = weeklydata;
-          console.log(weekly.total);
-          setWeeklyCommits(weekly.total);
-        });
-    }
+    async function getWeeklyCommits () {
+    const commitsNumsArray =  await Promise.all(
+      repoNames.map(async (names) => {
+        const data = await fetch(
+          `https://api.github.com/repos/${owner}/${names}/stats/commit_activity`
+        )
+          .then((results) => {
+            return results.json();
+          })
+          .then((datas) => {
+            console.log(datas[datas.length - 1]);
+            return datas[datas.length - 1];
+          });
+        console.log(data["total"]);
+        return data["total"];
+      })
+    );
+      console.log(commitsNumsArray);
+      const weekly = commitsNumsArray.reduce((acc,cur)=> acc+cur,0);
+      console.log(weekly);
+      setWeeklyCommits(weekly);
+  }
+  getWeeklyCommits();
   }, [commits]);
-
 
   return (
     <div>
@@ -63,3 +75,4 @@ const WeeklyCommit = ({ repoNames, commits }) => {
 };
 
 export default WeeklyCommit;
+
