@@ -32,7 +32,7 @@ const Tree = ({ repoNames, setRepoNames, commits, setCommits, token }) => {
       .then(async (data) => {
         const _repoNames = await data.map((ele) => ele.name);
         setRepoNames(_repoNames);
-        console.log(repoNames);
+        // console.log(repoNames);
       });
   }, []);
 
