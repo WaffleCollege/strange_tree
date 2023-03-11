@@ -26,7 +26,7 @@ const Tree = ({ repoNames, setRepoNames, commits, setCommits, token }) => {
     console.log(token);
     fetch(`https://api.github.com/users/${owner}/repos`, {
       headers: {
-        Authentication: `token ${token}`,
+        Authorization: `token ${token}`,
         Accept: "application / vnd.github.v3 + json",
       },
     })
