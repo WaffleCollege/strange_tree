@@ -5,47 +5,83 @@ import "./Sun.css";
 
 const Sun = ({ repoNames }) => {
   const owner = localStorage.getItem("owner");
-  const [sunNumber, setSunNumber] = useState(0);
-  const [dayOfWeek,setDayOfWeek] =useState(0);
+  const [sunNumber, setSunNumber] = useState(0);//昨日のコミット数
+  const [dayOfWeek,setDayOfWeek] =useState(0); //曜日
   
-// useEffect(()=>{
+  
+useEffect(()=>{
   const day = new Date();
   const _dayOfWeek = day.getDay();
   console.log(_dayOfWeek);
   setDayOfWeek(_dayOfWeek);
 
-// },[]);
+},[]);
 console.log(dayOfWeek);////ここが沢山出てくる
 
 
   useEffect(() => {
-
-        if(dayOfWeek === 0){
-          // async function getSundayCommits () {
-          //   const commitsNumsArray =  await Promise.all(
-          //     repoNames.map(async (names) => {
-                
-          //     })
-          //   )
-          // };
-          //     getSundayCommits();
-          console.log("sunday");
+        if({dayOfWeek} === 0){
+          console.log(dayOfWeek);
+          console.log({dayOfWeek});
+          async function getSundayCommits () {
+            const commitsNumsArray =  await Promise.all(
+              repoNames.map(async (names) => {
+                const data = await fetch(`https://api.github.com/repos/${owner}/${names}/stats/commit_activity`)
+                .then((results)=>{
+                  return results.json();
+               }).then((data)=>{
+                const weekDatas = data[data.length - 2];
+                const daysDatas = weekDatas.days;
+                return daysDatas[6];
+               })
+              })
+            )
+            const number = commitsNumsArray.reduce((acc,cur)=> acc+cur,0);
+            setSunNumber(number);
+          };
+          getSundayCommits();
+          
         } else {
-          // async function getSundayCommits () {
-          //   const commitsNumsArray =  await Promise.all(
-          //     repoNames.map(async (names) => {
+          // console.log(22222222222222);
+          async function getCommits () {
+            console.log(22222222222222);//ok
+            const commitsNumsArray1 =  await Promise.all(
+              repoNames.map(async (names) => {
+                const datas = await fetch(`https://api.github.com/repos/${owner}/${names}/stats/commit_activity`)
+                .then((results)=>{
+                  return results.json();
+               }).then((data)=>{
+                const weekDatas1 = data[data.length - 1];
+                console.log(weekDatas1);
+                const daysDatas1 = weekDatas1.days;
+                console.log(daysDatas1)
+                return daysDatas1[{dayOfWeek}-1];
+               })
+               return datas;
+              })
+            )
 
-          //     })
-          //   )
-          // };
-          console.log("not_sunday");
-          //     getSundayCommits();
+            const number1 = commitsNumsArray1.reduce((acc,cur)=> acc+cur,0);
+            console.log(number1);
+            setSunNumber(number1);
+          };
+          getCommits();
         }
 
+        return (
+              <div className="sun">
+                <p className="text">「{sunNumber} 日間」 連続コミット！！</p>
+              </div>
+            );
 
-  })
+  },[dayOfWeek]);
+
+          
+  // useEffect(()=>{
 
 
+  // },[setSunNumber]);
+  
 
 }
 //       async function getCommitsArray () {
@@ -203,11 +239,7 @@ console.log(dayOfWeek);////ここが沢山出てくる
 //   // //   setWeeklyCommits(weekly);
 //   // }, [date]);
 
-//   return (
-//     <div className="sun">
-//       <p className="text">「{sunNumber} 日間」 連続コミット！！</p>
-//     </div>
-//   );
+//   
 // };
 
 export default Sun;
