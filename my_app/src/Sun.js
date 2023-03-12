@@ -5,22 +5,25 @@ import "./Sun.css";
 
 const Sun = ({ repoNames }) => {
   const owner = localStorage.getItem("owner");
-  const [sunNumber, setSunNumber] = useState(0);//昨日のコミット数
-  const [dayOfWeek,setDayOfWeek] =useState(0); //曜日
+  const [sunNumber, setSunNumber] = useState();//昨日のコミット数
+  const [dayOfWeek,setDayOfWeek] =useState(); //曜日
   
+localStorage.setItem('commits', 0);
   
-useEffect(()=>{
-  const day = new Date();
+ useEffect(()=>{ 
+  const day = new Date(); 
   const _dayOfWeek = day.getDay();
   console.log(_dayOfWeek);
   setDayOfWeek(_dayOfWeek);
-
 },[]);
-console.log(dayOfWeek);////ここが沢山出てくる
+
+console.log(dayOfWeek);
 
 
   useEffect(() => {
-        if({dayOfWeek} === 0){
+        if(dayOfWeek === 0){
+          console.log(repoNames);
+          console.log(owner)
           console.log(dayOfWeek);
           console.log({dayOfWeek});
           async function getSundayCommits () {
@@ -31,20 +34,43 @@ console.log(dayOfWeek);////ここが沢山出てくる
                   return results.json();
                }).then((data)=>{
                 const weekDatas = data[data.length - 2];
+                console.log(weekDatas);
                 const daysDatas = weekDatas.days;
+                console.log(daysDatas[6]);
                 return daysDatas[6];
                })
+               console.log(data);
+               return data;
               })
             )
             const number = commitsNumsArray.reduce((acc,cur)=> acc+cur,0);
+            console.log(number);
             setSunNumber(number);
           };
           getSundayCommits();
+          if(sunNumber !== 0){
+            let commitsNum = localStorage.getItem('commits');
+            let commitsNumber = parseInt(commitsNum);
+            console.log(commitsNumber);
+            localStorage.removeItem('commits');
+            localStorage.setItem('commits',commitsNumber+1);
+            console.log( localStorage.getItem("commits"));
+        
+          } else{
+            
+            localStorage.removeItem('commits');
+            localStorage.setItem('commits', 0);  
+          };
+
+
+
           
-        } else {
-          // console.log(22222222222222);
+        }  else if (dayOfWeek === 1 || dayOfWeek === 2 || dayOfWeek === 3 || dayOfWeek === 4 || dayOfWeek === 5 ||dayOfWeek === 6 ) {
+      
           async function getCommits () {
-            console.log(22222222222222);//ok
+            console.log(repoNames);
+            console.log(owner)
+            console.log({dayOfWeek});
             const commitsNumsArray1 =  await Promise.all(
               repoNames.map(async (names) => {
                 const datas = await fetch(`https://api.github.com/repos/${owner}/${names}/stats/commit_activity`)
@@ -54,9 +80,10 @@ console.log(dayOfWeek);////ここが沢山出てくる
                 const weekDatas1 = data[data.length - 1];
                 console.log(weekDatas1);
                 const daysDatas1 = weekDatas1.days;
-                console.log(daysDatas1)
-                return daysDatas1[{dayOfWeek}-1];
+                console.log(dayOfWeek)
+                return daysDatas1[dayOfWeek-1];
                })
+               console.log(datas);
                return datas;
               })
             )
@@ -66,180 +93,38 @@ console.log(dayOfWeek);////ここが沢山出てくる
             setSunNumber(number1);
           };
           getCommits();
-        }
 
-        return (
-              <div className="sun">
-                <p className="text">「{sunNumber} 日間」 連続コミット！！</p>
-              </div>
-            );
-
-  },[dayOfWeek]);
-
-          
-  // useEffect(()=>{
+        };
+  },[repoNames]);
 
 
-  // },[setSunNumber]);
   
+// useEffect(()=>{
+//   if(sunNumber !== 0){
+//     let commitsNum = localStorage.getItem('commits');
+//     let commitsNumber = parseInt(commitsNum);
+//     console.log(commitsNumber);
+//     localStorage.removeItem('commits');
+//     localStorage.setItem('commits',commitsNumber);
+//     console.log( localStorage.getItem("commits"));
 
-}
-//       async function getCommitsArray () {
-//       const commitsNumsArray =  await Promise.all(
-//         repoNames.map(async (names) => {
-//           const data = await fetch(
-//             `https://api.github.com/repos/${owner}/${names}/stats/commit_activity`
-//           )
-//             .then((results) => {
-//               return results.json();
-//             }).then((data)=>{
-
-
-
-
-
-
-//               const commitsData =data[data.length - 2];//先週
-              
-//               commitsData.push(data[data.length - 1]);//今週
-//               console.log(commitsData);
-//             }).then((thisweek,lastweek)=>{
-              
-//             })
-//               // console.log(data)
-//             // if (dayOfWeek === 0) {  //日曜日
-//             //     console.log(commitsdatas);
-//             //     console.log(commitsdatas["days"]);
-//             //     const CommitsNums = commitsdatas["days"];
-//             //     console.log(CommitsNums);
-//             //     console.log(CommitsNums[6])
-//             //     return  CommitsNums[6];
-//             //  }else if(dayOfWeek !== 0){  
-//             //     console.log(commitsdatas1);
-//             //     console.log(commitsdatas1["days"]);
-//             //     const CommitsNums1 = commitsdatas1["days"];
-//             //     return  CommitsNums1[dayOfWeek-1];
-//             //  }
-
-          
-//             //  else if(dayOfWeek === 2) {
-//             //   const commitsdatas2 = data[data.length - 1];
-//             //   const CommitsNums2= commitsdatas2["days"];
-//             //   return  CommitsNums2[1];
-//             //  } else if(dayOfWeek ===3) {
-//             //   const commitsdatas3 = data[data.length - 1];
-//             //   const CommitsNums3 = commitsdatas3["days"];
-//             //   return  CommitsNums3[2];
-//             //  } else if(dayOfWeek ===4) {
-//             //   console.log(1111)
-//             //   const commitsdatas4= data[data.length - 1];
-//             //   const CommitsNums4 = commitsdatas4["days"];
-//             //   return  CommitsNums4[3];
-//             //  } else if(dayOfWeek === 5) {
-//             //   const commitsdatas5 = data[data.length - 1];
-//             //   console.log(commitsdatas5);
-//             //     console.log(commitsdatas5["days"]);
-//             //   const CommitsNums5 = commitsdatas5["days"];
-//             //   console.log(CommitsNums5[4]);
-//             //   return  CommitsNums5[4];
-//             //  } else if(dayOfWeek === 6) {
-//             //   const commitsdatas6 = data[data.length - 1];
-//             //   const CommitsNums6 = commitsdatas6["days"];
-//             //   return  CommitsNums6[5];
-//             //  } 
-            
-//           }));
-          
-//           // console.log(commitsNumsArray);
-//           // const number = commitsNumsArray.reduce((acc,cur)=> acc+cur,0);
-//           //   console.log(number);
-//           //   setSunNumber(number);
-//           // return
-        
-     
+//   } else{
     
-// // console.log(commitsNumsArray);            // .then((datas) => {
-//             //     if (dayOfWeek === 0) {      //日曜 
-//             //             const commitsdatas = datas[datas.length - 2];
-//             //             console.log(commitsdatas);
-//             //             console.log(commitsdatas["days"]);
-//             //             const CommitsNums = commitsdatas["days"];
-//             //             return  CommitsNums[6];
-//             //       } else if (dayOfWeek === 1) {
-//             //             const Mon_Commitsdatas = datas[datas.length - 1];
-//             //             console.log( Mon_Commitsdatas);
-//             //             const Mon_WeeklyCommits =  Mon_Commitsdatas["days"];
-//             //             return  Mon_WeeklyCommits[0];
-//             //       } else if (dayOfWeek === 2) {
-//             //         const commitsdatas = datas[datas.length - 2];
-//             //         console.log(commitsdatas);
-//             //         console.log(commitsdatas["days"]);
-//             //         const CommitsNums = commitsdatas["days"];
-//             //         return  CommitsNums[6];
-//             //       } else if (dayOfWeek === 3) {
-//             //         const commitsdatas = datas[datas.length - 2];
-//             //         console.log(commitsdatas);
-//             //         console.log(commitsdatas["days"]);
-//             //         const CommitsNums = commitsdatas["days"];
-//             //         return  CommitsNums[6];
-//             //       } else if (dayOfWeek === 4) {
-//             //         const commitsdatas1 = datas[datas.length - 2];
-//             //         console.log(commitsdatas1);
-//             //         console.log(commitsdatas1["days"]);
-//             //         const CommitsNums1 = commitsdatas1["days"];
-//             //         console.log(CommitsNums1[6])
-//             //         return  CommitsNums1[6];
-//             //       } else if (dayOfWeek === 5) {
-//             //         const commitsdatas = datas[datas.length - 2];
-//             //         console.log(commitsdatas);
-//             //         console.log(commitsdatas["days"]);
-//             //         const CommitsNums = commitsdatas["days"];
-//             //         return  CommitsNums[6];
-//             //       } else if (dayOfWeek === 6) {
-//             //         const commitsdatas = datas[datas.length - 2];
-//             //             console.log(commitsdatas);
-//             //             console.log(commitsdatas["days"]);
-//             //             const CommitsNums = commitsdatas["days"];
-//             //             return  CommitsNums[6];
-                 
-//             //     }
-//             // });
+//     localStorage.removeItem('commits');
+//     localStorage.setItem('commits', 0);  
+//   };
+// },[sunNumber]);
 
-//           // console.log(data["total"]);
-          
-//       //   })
-//       // );
+let consecutiveDays = localStorage.getItem('commits');
+console.log(consecutiveDays);
 
-//         // console.log(commitsNumsArray);
-//         // const number = commitsNumsArray.reduce((acc,cur)=> acc+cur,0);
-//         // console.log(number);
-//         // setSunNumber(number);
-//     }
-   
-//     getCommitsArray();
-//     }, []);
+  return (
+    <div className="sun">
+      <p className="text">「{consecutiveDays}日間」 連続コミット！！</p>
+    </div>
+  );
 
 
-
-//     // ナンバーが0なら
-      
-//   //   // });  
-
-//   //     //配列の中身足す
-
-//   //     // ０か0いがいか判断
-//   //     // if(0)
-
-//   //     // else(1)
-//   //   // });
-
-//   // //   console.log(a);//undefined
-//   // //   const weekly = a.reduce((acc,cur)=>acc+cur ,0);
-//   // //   console.log(weekly);//Nan
-//   // //   setWeeklyCommits(weekly);
-//   // }, [date]);
-
-//   
-// };
+};
 
 export default Sun;
