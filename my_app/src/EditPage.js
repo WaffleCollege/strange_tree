@@ -1,9 +1,13 @@
-import React from 'react'
+import React from "react";
+import ItemBox from "./ItemBox";
 
 const EditPage = () => {
   return (
-    <div>EditPage</div>
-  )
-}
+    <>
+      <div>EditPage</div>
+      <ItemBox />
+    </>
+  );
+};
 
-export default EditPage
+export default EditPage;

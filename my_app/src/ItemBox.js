@@ -1,9 +1,8 @@
-import React from 'react'
+import React from "react";
+import "./ItemBox.css";
 
 const ItemBox = () => {
-  return (
-    <div>ItemBox</div>
-  )
-}
+  return <div className="itemBox">ItemBox</div>;
+};
 
-export default ItemBox
+export default ItemBox;
