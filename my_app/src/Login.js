@@ -33,7 +33,7 @@ const Login = ({ setIsAuth, setToken, setAvatar }) => {
       username: result._tokenResponse.screenName,
       email: result.user.email,
       avatar: result.user.photoURL,
-      first_login: loginTime,
+      created_at: loginTime,
     };
     postUserData("http://localhost:8080/users", data);
     setToken(credential.accessToken);

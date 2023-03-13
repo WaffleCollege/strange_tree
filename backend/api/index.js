@@ -29,15 +29,15 @@ app.get("/users", (req, res) => {
 });
 
 app.post("/users", (req, res) => {
-  const { username, email, avatar, first_login, tree_id } = req.body;
+  const { username, email, avatar, created_at} = req.body;
   pool.query(
     "select * from users where username = $1 and email = $2",
     [username, email],
     (error, results) => {
       if (!results.rows.length) {
         pool.query(
-          `insert into users (username, email, avatar, first_login) values ($1, $2, $3, $4)`,
-          [username, email, avatar, first_login],
+          `insert into users (username, email, avatar, created_at) values ($1, $2, $3, $4)`,
+          [username, email, avatar, created_at],
           (error, results) => {
             if (error) throw error;
             return res.status(201).send("registered!");
