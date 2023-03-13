@@ -1,20 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightToBracket } from "@fortawesome/free-solid-svg-icons";
+import { useAuthContext } from "./context";
 
-export const Navbar = ({ isAuth, avatar }) => {
-  const owner = localStorage.getItem("owner");
+export const Navbar = () => {
+  const { owner, isAuth, avatar } = useAuthContext();
+
   return (
     <nav>
       <div className="pageTitle">
         <a href="/">Strange Tree</a>
       </div>
       <div className="links">
-        <Link to="/edit">
-          ツリーを飾る
-        </Link>
+        <Link to="/edit">ツリーを飾る</Link>
         {isAuth ? (
           <>
             <Link to="/">

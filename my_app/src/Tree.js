@@ -1,15 +1,12 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
+import { useAuthContext, useGitInfoContext } from "./context";
 import "./Tree.css";
 
-const Tree = ({
-  repoNames,
-  setRepoNames,
-  commits,
-  setCommits,
-  token,
-  setToken,
-}) => {
+const Tree = () => {
+  console.log("tree");
+  const { owner, setOwner, token, setToken } = useAuthContext();
+  const { repoNames, setRepoNames, commits, setCommits } = useGitInfoContext();
   const trees = [
     "https://i.ibb.co/0QZCRFG/tree-seichou01.png", //種
     "https://i.ibb.co/0JtXMgs/tree-seichou02.png", //双葉
@@ -19,16 +16,10 @@ const Tree = ({
     "https://i.ibb.co/rksbDMM/tree-seichou06.png", //木１
     "https://i.ibb.co/HgjkX7G/tree-seichou07.png", //木２
     "https://i.ibb.co/DfHB8Jz/tree-seichou08.png", //木３
-    "https://i.ibb.co/mFWQNCg/tree-seichou09.png",
-  ]; //リンゴ
-
+    "https://i.ibb.co/mFWQNCg/tree-seichou09.png", //リンゴ
+  ]; 
   const [treeimg, setTreeimg] = useState("");
 
-  const owner = localStorage.getItem("owner");
-  // const timeStamp = localStorage.getItem("timeStamp");
-  // ?since=${timeStamp}Z
-  // 後ほど行う
-  ////////reponameの取得
   useEffect(() => {
     const getToken = async () => {
       const result = await fetch(`http://localhost:8080/users/${owner}`)
@@ -37,7 +28,7 @@ const Tree = ({
       setToken(result);
     };
     getToken();
-  }, []);
+  }, [owner, setToken]);
 
   useEffect(() => {
     if (token) {
@@ -55,7 +46,7 @@ const Tree = ({
           setRepoNames(_repoNames);
         });
     }
-  }, [token]);
+  }, [token, owner, setRepoNames]);
 
   useEffect(() => {
     fetch("http://localhost:8080/tree")
@@ -93,7 +84,7 @@ const Tree = ({
       setCommits(allCommits);
     };
     countCommits();
-  }, [repoNames, token]);
+  }, [repoNames, token, setCommits, owner]);
 
   useEffect(() => {
     if (commits <= 20) {

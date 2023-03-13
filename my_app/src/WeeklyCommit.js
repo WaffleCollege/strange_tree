@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
+import { useAuthContext, useGitInfoContext } from "./context";
 
-const WeeklyCommit = ({ repoNames, commits, token }) => {
+const WeeklyCommit = () => {
+  const {repoNames, commits} = useGitInfoContext();
+  const {owner, token} = useAuthContext();
   const [weeklyCommits, setWeeklyCommits] = useState(0);
   const [lastWeeklyCommits, setLastWeeklyCommits] = useState(0);
 
-  const owner = localStorage.getItem("owner");
 
   /////先週のコミット数
 

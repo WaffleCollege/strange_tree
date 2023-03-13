@@ -3,8 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { auth, provider } from "./firebaseApp";
 import Button from "./Button";
 import "./Login.css";
+import { useAuthContext } from "./context";
 
-const Login = ({ setIsAuth, setToken, setAvatar }) => {
+const Login = () => {
+  const {setOwner, setIsAuth, setToken, setAvatar} = useAuthContext();
   const navigate = useNavigate();
   const postUserData = (url, data) => {
     fetch(url, {
@@ -37,6 +39,7 @@ const Login = ({ setIsAuth, setToken, setAvatar }) => {
       token: credential.accessToken
     };
     postUserData("http://localhost:8080/users", data);
+    setOwner(result._tokenResponse.screenName);
     setToken(credential.accessToken);
     setIsAuth(true);
     setAvatar(result.user.photoURL);

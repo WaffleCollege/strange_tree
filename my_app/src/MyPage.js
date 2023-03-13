@@ -4,12 +4,10 @@ import Tree from "./Tree.js";
 import Button from "./Button.js";
 import Sun from "./Sun.js";
 import WeeklyCommit from "./WeeklyCommit.js";
-import { useState } from "react";
+import { useAuthContext } from "./context.js";
 
-
-const MyPage = ({ isAuth, token, setToken, repoNames, setRepoNames }) => {
-  const [commits, setCommits] = useState(0);
-
+const MyPage = () => {
+  const { isAuth } = useAuthContext();
   const navigate = useNavigate();
   const move = () => {
     navigate("/Stage");
@@ -19,22 +17,14 @@ const MyPage = ({ isAuth, token, setToken, repoNames, setRepoNames }) => {
     if (!isAuth) {
       navigate("/login");
     }
-  });
+  }, [isAuth]);
 
   return (
     <>
       <Sun />
-      <Tree
-        repoNames={repoNames}
-        setRepoNames={setRepoNames}
-        commits={commits}
-        setCommits={setCommits}
-        token={token}
-        setToken={setToken}
-      />
+      <Tree />
       <Button function={move} text="ステージ一覧" />
-      <WeeklyCommit repoNames={repoNames} commits={commits} token={token} />
-
+      <WeeklyCommit />
     </>
   );
 };

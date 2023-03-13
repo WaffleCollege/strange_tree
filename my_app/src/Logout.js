@@ -4,8 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { auth } from "./firebaseApp";
 import "./Login.css";
 import Button from "./Button";
+import { useAuthContext } from "./context";
 
-const Logout = ({ setIsAuth }) => {
+const Logout = () => {
+  const {setIsAuth} = useAuthContext();
   const navigate = useNavigate();
   const logout = () => {
     signOut(auth).then(() => {
