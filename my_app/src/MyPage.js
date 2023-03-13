@@ -23,7 +23,6 @@ const MyPage = ({ isAuth, token, repoNames, setRepoNames }) => {
 
   return (
     <>
-      <h1>MyPage</h1>
       <Sun />
       <Tree
         repoNames={repoNames}
