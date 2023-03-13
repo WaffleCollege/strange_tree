@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 
-const WeeklyCommit = ({ repoNames, commits }) => {
+const WeeklyCommit = ({ repoNames, commits, token }) => {
   const [weeklyCommits, setWeeklyCommits] = useState(0);
   const [lastWeeklyCommits, setLastWeeklyCommits] = useState(0);
 
@@ -45,7 +45,13 @@ const WeeklyCommit = ({ repoNames, commits }) => {
     const commitsNumsArray =  await Promise.all(
       repoNames.map(async (names) => {
         const data = await fetch(
-          `https://api.github.com/repos/${owner}/${names}/stats/commit_activity`
+          `https://api.github.com/repos/${owner}/${names}/stats/commit_activity`,
+          {
+            headers: {
+              Authorization: `token ${token}`,
+              Accept: "application / vnd.github.v3 + json",
+            },
+          }
         )
           .then((results) => {
             return results.json();
@@ -60,7 +66,7 @@ const WeeklyCommit = ({ repoNames, commits }) => {
       setWeeklyCommits(weekly);
   }
   getWeeklyCommits();
-  }, [commits]);
+  }, [commits, token]);
 
   return (
     <div>

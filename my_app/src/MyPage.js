@@ -7,7 +7,7 @@ import WeeklyCommit from "./WeeklyCommit.js";
 import { useState } from "react";
 
 
-const MyPage = ({ isAuth, token, repoNames, setRepoNames }) => {
+const MyPage = ({ isAuth, token, setToken, repoNames, setRepoNames }) => {
   const [commits, setCommits] = useState(0);
 
   const navigate = useNavigate();
@@ -30,9 +30,10 @@ const MyPage = ({ isAuth, token, repoNames, setRepoNames }) => {
         commits={commits}
         setCommits={setCommits}
         token={token}
+        setToken={setToken}
       />
       <Button function={move} text="ステージ一覧" />
-      <WeeklyCommit repoNames={repoNames} commits={commits} />
+      <WeeklyCommit repoNames={repoNames} commits={commits} token={token} />
 
     </>
   );

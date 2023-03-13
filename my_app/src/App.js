@@ -15,17 +15,7 @@ const App = () => {
   const [repoNames, setRepoNames] = useState([]);
   const [avatar, setAvatar] = useState(localStorage.getItem("avatar"));
 
-  useEffect(() => {
-    const owner = localStorage.getItem("owner");
-    const getToken = async () => {
-      const result = await fetch(`http://localhost:8080/users/${owner}`)
-        .then((res) => res.json())
-        .then((data) => data.token);
-      return result;
-    };
-    const _token = getToken();
-    setToken(_token);
-  }, []);
+
 
   return (
     <div className="App">
@@ -38,6 +28,7 @@ const App = () => {
               <MyPage
                 isAuth={isAuth}
                 token={token}
+                setToken={setToken}
                 repoNames={repoNames}
                 setRepoNames={setRepoNames}
               />

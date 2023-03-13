@@ -2,7 +2,14 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import "./Tree.css";
 
-const Tree = ({ repoNames, setRepoNames, commits, setCommits, token }) => {
+const Tree = ({
+  repoNames,
+  setRepoNames,
+  commits,
+  setCommits,
+  token,
+  setToken,
+}) => {
   const trees = [
     "https://i.ibb.co/0QZCRFG/tree-seichou01.png", //種
     "https://i.ibb.co/0JtXMgs/tree-seichou02.png", //双葉
@@ -23,22 +30,32 @@ const Tree = ({ repoNames, setRepoNames, commits, setCommits, token }) => {
   // 後ほど行う
   ////////reponameの取得
   useEffect(() => {
-    console.log(token);
-    fetch(`https://api.github.com/users/${owner}/repos`, {
-      headers: {
-        Authorization: `token ${token}`,
-        Accept: "application / vnd.github.v3 + json",
-      },
-    })
-      .then((data) => {
-        return data.json();
-      })
-      .then(async (data) => {
-        const _repoNames = await data.map((ele) => ele.name);
-        setRepoNames(_repoNames);
-        console.log(repoNames);
-      });
+    const getToken = async () => {
+      const result = await fetch(`http://localhost:8080/users/${owner}`)
+        .then((res) => res.json())
+        .then((data) => data.token);
+      setToken(result);
+    };
+    getToken();
   }, []);
+
+  useEffect(() => {
+    if (token) {
+      fetch(`https://api.github.com/users/${owner}/repos`, {
+        headers: {
+          Authorization: `token ${token}`,
+          Accept: "application / vnd.github.v3 + json",
+        },
+      })
+        .then((data) => {
+          return data.json();
+        })
+        .then(async (data) => {
+          const _repoNames = await data.map((ele) => ele.name);
+          setRepoNames(_repoNames);
+        });
+    }
+  }, [token]);
 
   useEffect(() => {
     fetch("http://localhost:8080/tree")
@@ -59,7 +76,13 @@ const Tree = ({ repoNames, setRepoNames, commits, setCommits, token }) => {
       const commitNums = await Promise.all(
         repoNames.map(async (repo) => {
           const data = await fetch(
-            `https://api.github.com/repos/${owner}/${repo}/commits?since=2023-01-26T09:00:45Z`
+            `https://api.github.com/repos/${owner}/${repo}/commits?since=2023-01-26T09:00:45Z`,
+            {
+              headers: {
+                Authorization: `token ${token}`,
+                Accept: "application / vnd.github.v3 + json",
+              },
+            }
           ).then((data) => {
             return data.json();
           });
@@ -70,7 +93,7 @@ const Tree = ({ repoNames, setRepoNames, commits, setCommits, token }) => {
       setCommits(allCommits);
     };
     countCommits();
-  }, [repoNames]);
+  }, [repoNames, token]);
 
   useEffect(() => {
     if (commits <= 20) {
