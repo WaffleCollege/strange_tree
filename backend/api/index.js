@@ -28,8 +28,20 @@ app.get("/users", (req, res) => {
   });
 });
 
+app.get("/users/:name", (req, res) => {
+  pool.query(
+    "select * from users where username = $1",
+    [req.params.name],
+    (error, results) => {
+      if (error) throw error;
+      console.log(results.rows);
+      return res.status(200).json(results.rows[0]);
+    }
+  );
+});
+
 app.post("/users", (req, res) => {
-  const { username, email, avatar, created_at} = req.body;
+  const { username, email, avatar, created_at, token } = req.body;
   pool.query(
     "select * from users where username = $1 and email = $2",
     [username, email],
@@ -44,6 +56,14 @@ app.post("/users", (req, res) => {
           }
         );
       }
+      pool.query(
+        `update users set token = $1 where username = $2 and email = $3`,
+        [token, username, email],
+        (error, results) => {
+          if (error) throw error;
+          return res.status(201).send("registered!");
+        }
+      );
     }
   );
 });
