@@ -14,24 +14,7 @@ const App = () => {
   const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
   const [repoNames, setRepoNames] = useState([]);
   const [avatar, setAvatar] = useState(localStorage.getItem("avatar"));
-  //サインインで取得したトークンでAPIにアクセス
-  //     .then(() => {
-  //       fetch(
-  //         `https://api.github.com/users/${owner}/repos?per_page=100&page=1`,
-  //         {
-  //           headers: {
-  //             Authorization: `token ${token}`,
-  //             Accept: "application / vnd.github.v3 + json",
-  //           },
-  //         }
-  //       ).then((result) => {
-  //         result.json().then((result) => {
-  //           setRepoNames(result.map((obj) => obj.name));
-  //           console.log(repoNames);
-  //         });
-  //       });
-  //     });
-  // };
+
   useEffect(() => {
     const owner = localStorage.getItem("owner");
     const getToken = async () => {
