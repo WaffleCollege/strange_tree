@@ -6,7 +6,7 @@ const WeeklyCommit = () => {
   const {repoNames, commits} = useGitInfoContext();
   const {owner, token} = useAuthContext();
   const [weeklyCommits, setWeeklyCommits] = useState(0);
-  const [lastWeeklyCommits, setLastWeeklyCommits] = useState(0);
+  // const [lastWeeklyCommits, setLastWeeklyCommits] = useState(0);
 
 
   /////先週のコミット数
