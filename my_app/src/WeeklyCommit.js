@@ -68,7 +68,7 @@ const WeeklyCommit = () => {
       setWeeklyCommits(weekly);
   }
   getWeeklyCommits();
-  }, [commits, token]);
+  }, [commits, token, repoNames, owner]);
 
   return (
     <div>

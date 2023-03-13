@@ -5,7 +5,7 @@ import "./Tree.css";
 
 const Tree = () => {
   console.log("tree");
-  const { owner, setOwner, token, setToken } = useAuthContext();
+  const { owner, token, setToken } = useAuthContext();
   const { repoNames, setRepoNames, commits, setCommits } = useGitInfoContext();
   const trees = [
     "https://i.ibb.co/0QZCRFG/tree-seichou01.png", //種
