@@ -13,21 +13,16 @@ export const Navbar = ({ isAuth, avatar }) => {
       </div>
       <div className="links">
         {isAuth ? (
-          <Link to="/">
-            <img
-              src={avatar}
-              alt="avatar"
-              className="avatar"
-            />
-            {owner}
-          </Link>
-        ) : null}
-
-        {isAuth ? (
-          <Link to="/logout">
-            <FontAwesomeIcon icon={faArrowRightToBracket} />
-            ログアウト
-          </Link>
+          <>
+            <Link to="/">
+              <img src={avatar} alt="avatar" className="avatar" />
+              {owner}
+            </Link>
+            <Link to="/logout">
+              <FontAwesomeIcon icon={faArrowRightToBracket} />
+              ログアウト
+            </Link>
+          </>
         ) : (
           <Link to="/login">
             <FontAwesomeIcon icon={faArrowRightToBracket} />
