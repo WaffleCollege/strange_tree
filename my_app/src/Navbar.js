@@ -12,6 +12,9 @@ export const Navbar = ({ isAuth, avatar }) => {
         <a href="/">Strange Tree</a>
       </div>
       <div className="links">
+        <Link to="/edit">
+          ツリーを飾る
+        </Link>
         {isAuth ? (
           <>
             <Link to="/">
