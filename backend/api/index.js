@@ -29,12 +29,13 @@ app.get("/users", (req, res) => {
 });
 
 app.get("/users/:name", (req, res) => {
+  console.log(req.params.name);
   pool.query(
     "select * from users where username = $1",
     [req.params.name],
     (error, results) => {
       if (error) throw error;
-      console.log(results.rows);
+      console.log(results.rows[0]);
       return res.status(200).json(results.rows[0]);
     }
   );
@@ -52,7 +53,7 @@ app.post("/users", (req, res) => {
           [username, email, avatar, created_at],
           (error, results) => {
             if (error) throw error;
-            return res.status(201).send("registered!");
+            return res.status(201).send('registered!');
           }
         );
       }
