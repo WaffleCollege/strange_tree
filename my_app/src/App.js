@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Navbar } from "./Navbar";
@@ -32,6 +32,17 @@ const App = () => {
   //       });
   //     });
   // };
+  useEffect(() => {
+    const owner = localStorage.getItem("owner");
+    const getToken = async () => {
+      const result = await fetch(`http://localhost:8080/users/${owner}`)
+        .then((res) => res.json())
+        .then((data) => data.token);
+      return result;
+    };
+    const _token = getToken();
+    setToken(_token);
+  }, []);
 
   return (
     <div className="App">
