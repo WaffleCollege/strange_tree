@@ -1,7 +1,16 @@
 .itemBox {
-    height: 10vh;
-    width: 30vw;
+    /* height: 10vh; */
+    /* width: 30vw; */
     border: solid;
-    
+    margin-top: 10px;
+    width: 50vw;
+}
 
+.itemImg {
+    /* height: 50%; */
+    width: 10%;
+}
+
+.itemBox p {
+    margin: 0px;
 }
