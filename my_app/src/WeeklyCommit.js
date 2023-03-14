@@ -42,6 +42,7 @@ const WeeklyCommit = () => {
 
   useEffect(() => {
     async function getWeeklyCommits() {
+      console.log(repoNames.length);
       const commitsNumsArray = await Promise.all(
         repoNames.map(async (name) => {
           const data = await fetch(
@@ -53,8 +54,8 @@ const WeeklyCommit = () => {
               },
             }
           )
-            .then((results) => {
-              return results.json();
+            .then(async (results) => {
+              return await results.json();
             })
             .then((data) => {
               return data[data.length - 1];
