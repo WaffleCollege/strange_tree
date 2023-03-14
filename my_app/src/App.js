@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Navbar } from "./Navbar";
 import "./App.css";
@@ -10,44 +9,18 @@ import Stage from "./Stage";
 import EditPage from "./EditPage";
 
 const App = () => {
-  const [token, setToken] = useState(null);
-  const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
-  const [repoNames, setRepoNames] = useState([]);
-  const [avatar, setAvatar] = useState(localStorage.getItem("avatar"));
-
-
-
+  console.log("app");
   return (
     <div className="App">
       <Router>
-        <Navbar isAuth={isAuth} avatar={avatar} setAvatar={setAvatar} />
+        <Navbar />
         <Routes>
-          <Route
-            path="/"
-            element={
-              <MyPage
-                isAuth={isAuth}
-                token={token}
-                setToken={setToken}
-                repoNames={repoNames}
-                setRepoNames={setRepoNames}
-              />
-            }
-          ></Route>
+          <Route path="/" element={<MyPage />}></Route>
           <Route path="/edit" element={<EditPage />}></Route>
-          <Route
-            path="/login"
-            element={
-              <Login
-                setIsAuth={setIsAuth}
-                setToken={setToken}
-                setAvatar={setAvatar}
-              />
-            }
-          ></Route>
+          <Route path="/login" element={<Login />}></Route>
           <Route
             path="/logout"
-            element={<Logout setIsAuth={setIsAuth} />}
+            element={<Logout />}
           ></Route>
           <Route path="/Stage" element={<Stage />}></Route>
         </Routes>

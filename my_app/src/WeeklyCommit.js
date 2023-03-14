@@ -1,16 +1,17 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
+import { useAuthContext, useGitInfoContext } from "./context";
 
-const WeeklyCommit = ({ repoNames, commits, token }) => {
+const WeeklyCommit = () => {
+  const { repoNames, commits } = useGitInfoContext();
+  const { owner, token } = useAuthContext();
   const [weeklyCommits, setWeeklyCommits] = useState(0);
-  const [lastWeeklyCommits, setLastWeeklyCommits] = useState(0);
-
-  const owner = localStorage.getItem("owner");
+  // const [lastWeeklyCommits, setLastWeeklyCommits] = useState(0);
 
   /////先週のコミット数
 
   // useEffect(() => {
-  
+
   //   async function getLastWeeklyCommits () {
   //     const commitsArray =  await Promise.all(
   //       repoNames.map(async (names) => {
@@ -39,34 +40,33 @@ const WeeklyCommit = ({ repoNames, commits, token }) => {
 
   ////今週のコミット数
 
-  useEffect( () => {
-  
-    async function getWeeklyCommits () {
-    const commitsNumsArray =  await Promise.all(
-      repoNames.map(async (names) => {
-        const data = await fetch(
-          `https://api.github.com/repos/${owner}/${names}/stats/commit_activity`,
-          {
-            headers: {
-              Authorization: `token ${token}`,
-              Accept: "application / vnd.github.v3 + json",
-            },
-          }
-        )
-          .then((results) => {
-            return results.json();
-          })
-          .then((datas) => {
-            return datas[datas.length - 1];
-          });
-        return data["total"];
-      })
-    );
-      const weekly = commitsNumsArray.reduce((acc,cur)=> acc+cur,0);
+  useEffect(() => {
+    async function getWeeklyCommits() {
+      const commitsNumsArray = await Promise.all(
+        repoNames.map(async (names) => {
+          const data = await fetch(
+            `https://api.github.com/repos/${owner}/${names}/stats/commit_activity`,
+            {
+              headers: {
+                Authorization: `token ${token}`,
+                Accept: "application / vnd.github.v3 + json",
+              },
+            }
+          )
+            .then((results) => {
+              return results.json();
+            })
+            .then((data) => {
+              return data[data.length - 1];
+            });
+          return data.total;
+        })
+      );
+      const weekly = commitsNumsArray.reduce((acc, cur) => acc + cur, 0);
       setWeeklyCommits(weekly);
-  }
-  getWeeklyCommits();
-  }, [commits, token]);
+    }
+    getWeeklyCommits();
+  }, [commits, token, repoNames, owner]);
 
   return (
     <div>
@@ -77,4 +77,3 @@ const WeeklyCommit = ({ repoNames, commits, token }) => {
 };
 
 export default WeeklyCommit;
-
