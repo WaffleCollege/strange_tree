@@ -14,17 +14,14 @@ const EditPage = () => {
       y: y + ui.deltaY,
     });
   };
-
   const onStart = () => {
     setActiveDrags((prev) => prev + 1);
   };
-
   const onStop = () => {
     setActiveDrags((prev) => prev - 1);
   };
 
   const dragHandlers = { onStart: onStart, onStop: onStop };
-  // const imageUrl = "../public/fruit_ringo.png";
   return (
     <div className="container">
       <ItemBox>
