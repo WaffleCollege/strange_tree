@@ -37,8 +37,8 @@ useEffect( () => {
   
 
 async function consecutiveDays () {
-let loginTime = loginTimeStamp;
-let time = loginTime.substring(0, 10);
+let loginTime = (timeStamp);
+let time = loginTime.toString().substring(0, 10);
 let newTime = time.replace(/-/g, "/");
 let timeStamp = Date.now() - new Date(newTime).getTime();
 const elapsedDays = Math.floor( timeStamp / 86400000 );
@@ -52,9 +52,9 @@ const consecutive =  await Promise.all(
      }).then((data)=>{
       let commitsDatas=[];
       for(const i of data){
-        let day = i.days ;
+        let day = i.days ; 
         for(const a of day){
-          commitsDatas.push(a)
+          commitsDatas.push(a);
         }
       }
       return commitsDatas;
@@ -64,7 +64,10 @@ const consecutive =  await Promise.all(
   );
   
 
-let firstArray =consecutive[0] 
+
+
+
+let firstArray =consecutive[0];
 let otherArray =consecutive;
 otherArray.shift();
 let total=firstArray;
@@ -76,7 +79,7 @@ for (const i = 0; i < arr.length; i++) {
 }
 let total1 = total;
 
-total1.splice(0,total1.length-elapsedDays);
+total1.splice(0,total1.length-(elapsedDays+dayOfWeek));
 total1.splice(total1.length-dayOfWeek,dayOfWeek);
 let totalCommits = total1; 
 
