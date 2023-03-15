@@ -60,6 +60,28 @@ app.get("/users/:name/items", (req, res) => {
   );
 });
 
+app.get("/items", (req, res) => {
+  console.log(req.query.id);
+  // pool.query(
+  //   "select id from users where username=$1",
+  //   [req.params.name],
+  //   (error, results) => {
+  //     if (error) throw error;
+  //     if (results.rows.length) {
+  //       const id = results.rows[0].id;
+  //       pool.query(
+  //         `select item_id, quantity from item_acquisition_history where user_id=${id}`,
+  //         (error, results) => {
+  //           console.log(results.rows);
+  //           if (error) throw error;
+  //           return res.status(200).json(results.rows);
+  //         }
+  //       );
+  //     }
+  //   }
+  // );
+});
+
 app.post("/users", (req, res) => {
   const { username, email, avatar, created_at, token } = req.body;
   pool.query(
