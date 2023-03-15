@@ -16,6 +16,7 @@ export function AuthProvider({ children }) {
   const [owner, setOwner] = useState(localStorage.getItem("owner"));
   const [token, setToken] = useState(null);
   const [avatar, setAvatar] = useState(localStorage.getItem("avatar"));
+  const [firstLogin, setFirstLogin] = useState(null);
 
   const value = {
     isAuth,
@@ -26,6 +27,8 @@ export function AuthProvider({ children }) {
     setToken,
     avatar,
     setAvatar,
+    firstLogin,
+    setFirstLogin,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
