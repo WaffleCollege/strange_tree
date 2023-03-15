@@ -27,7 +27,7 @@ const EditPage = () => {
       <ItemBox>
         <Draggable onDrag={handleDrag} {...dragHandlers}>
           <div className="box">
-            <img onDragStart={e => e.preventDefault()} src="./fruit_ringo.png" alt="apple" className="itemImg" />
+            <img onDragStart={e => e.preventDefault()} src="./apple.png" alt="apple" className="itemImg" />
           </div>
         </Draggable>
       </ItemBox>
