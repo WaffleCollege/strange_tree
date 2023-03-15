@@ -28,24 +28,24 @@ const EditPage = () => {
     const result = await fetch(
       `http://localhost:8080/users/${owner}/items`
     ).then((result) => result.json());
-    const idList = await Promise.all(result.map((data) => data.id));
+    const idList = await Promise.all(result.map((data) => data.item_id));
     return idList;
   };
   const getItemList = async () => {
     const idList = await getIdList();
     const itemList = await Promise.all(
       idList.map(async (id) => {
-        const item = await fetch(`http://localhost8080/items?id=${id}`).then(
+        const item = await fetch(`http://localhost:8080/items?id=${id}`).then(
           (res) => res.json()
         );
         return item;
       })
     );
-    return itemList;
+    console.log(itemList);
+    setItems(itemList);
   };
   useEffect(() => {
-    const _items = getItemList();
-    setItems(_items);
+    getItemList();
   }, [owner, setItems]);
   return (
     <div className="container">
