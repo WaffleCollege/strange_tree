@@ -23,15 +23,30 @@ const EditPage = () => {
   const onStop = () => {
     setActiveDrags((prev) => prev - 1);
   };
-
   const dragHandlers = { onStart: onStart, onStop: onStop };
+  const getIdList = async () => {
+    const result = await fetch(
+      `http://localhost:8080/users/${owner}/items`
+    ).then((result) => result.json());
+    const idList = await Promise.all(result.map((data) => data.id));
+    return idList;
+  };
+  const getItemList = async () => {
+    const idList = await getIdList();
+    const itemList = await Promise.all(
+      idList.map(async (id) => {
+        const item = await fetch(`http://localhost8080/items?id=${id}`).then(
+          (res) => res.json()
+        );
+        return item;
+      })
+    );
+    return itemList;
+  };
   useEffect(() => {
-    const result = fetch(`http://localhost:8080/users/${owner}/items`)
-      .then((result) => result.json())
-      .then((data) => {
-        console.log(data);
-      });
-  }, [owner]);
+    const _items = getItemList();
+    setItems(_items);
+  }, [owner, setItems]);
   return (
     <div className="container">
       <ItemBox>
