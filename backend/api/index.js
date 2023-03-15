@@ -51,8 +51,6 @@ app.get("/users/:name/items", (req, res) => {
           `select item_id, quantity from item_acquisition_history where user_id=${id}`,
           (error, results) => {
             console.log(results.rows);
-            const items = results.rows.map(data => data.item_id)
-            console.log(items);
             if (error) throw error;
             return res.status(200).json(results.rows);
           }
