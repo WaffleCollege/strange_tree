@@ -38,7 +38,7 @@ useEffect( () => {
 
 async function consecutiveDays () {
 let loginTime = loginTimeStamp;
-let time = loginTime.toString().substring(0, 10);
+let time = loginTime.substring(0, 10);
 let newTime = time.replace(/-/g, "/");
 let timeStamp = Date.now() - new Date(newTime).getTime();
 const elapsedDays = Math.floor( timeStamp / 86400000 );
