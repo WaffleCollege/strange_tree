@@ -112,8 +112,8 @@ const Tree = () => {
   }, [commits]);
   return (
     <>
-      <img className="treeimg" src={treeimg} alt="tree" />
-      <h1 className="monthtext">-{owner}の木-</h1>
+      <img className="treeImg" src={treeimg} alt="tree" />
+      <h1 className="treeOwner">-{owner}の木-</h1>
     </>
   );
 };
