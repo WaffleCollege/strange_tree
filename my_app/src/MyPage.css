@@ -1,0 +1,8 @@
+.myPageContainer {
+    display: flex;
+}
+
+.treeContents {
+    /* flex: 40%; */
+    width: 60%;
+}
