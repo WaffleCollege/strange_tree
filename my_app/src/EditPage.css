@@ -2,8 +2,18 @@
     display: flex;
     margin: none;
     /* flex-direction: row; */
+    /* gap: 10%; */
 }
 
 .itemBox {
+    flex: 10%;
+}
 
+.treeContainer {
+    flex: 60%;
+    margin-right: 10%;
+}
+
+.treeImg {
+width: 40%;
 }

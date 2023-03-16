@@ -66,7 +66,9 @@ const EditPage = () => {
           );
         })}
       </ItemBox>
-      <Tree />
+      <div className="treeContainer">
+        <Tree />
+      </div>
     </div>
   );
 };
