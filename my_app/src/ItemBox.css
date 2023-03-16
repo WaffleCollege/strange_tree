@@ -1,16 +1,32 @@
 .itemBox {
-    /* height: 10vh; */
-    /* width: 30vw; */
-    border: solid;
-    margin-top: 10px;
-    width: 50vw;
+    margin: 10px;
+    margin-right: none;
+    border: 2px solid black;
+    /* margin-top: 10px; */
+    border-radius: 5px;
+    width: 300px;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    /* overflow: scroll; */
+}
+
+.imgContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    height: 90%;
 }
 
 .itemImg {
-    /* height: 50%; */
-    width: 10%;
+    height: auto;
+    width: 70%;
 }
 
 .itemBox p {
     margin: 0px;
+}
+
+.box {
+    height: 
 }

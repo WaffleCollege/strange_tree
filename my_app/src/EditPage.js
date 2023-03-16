@@ -3,6 +3,7 @@ import ItemBox from "./ItemBox";
 import Tree from "./Tree";
 import Draggable from "react-draggable";
 import { useAuthContext } from "./context";
+import "./EditPage.css";
 
 const EditPage = () => {
   const [activeDrags, setActiveDrags] = useState(0);
@@ -17,7 +18,8 @@ const EditPage = () => {
       y: y + ui.deltaY,
     });
   };
-  const onStart = () => {
+  const onStart = (e) => {
+    e.zIndex = 1000;
     setActiveDrags((prev) => prev + 1);
   };
   const onStop = () => {
@@ -28,7 +30,7 @@ const EditPage = () => {
     const result = await fetch(
       `http://localhost:8080/users/${owner}/items`
     ).then((result) => result.json());
-    const idList = await Promise.all(result.map((data) => data.item_id));
+    const idList = result.map((data) => data.item_id);
     return idList;
   };
   const getItemList = async () => {
@@ -41,7 +43,6 @@ const EditPage = () => {
         return item;
       })
     );
-    console.log(itemList);
     setItems(itemList);
   };
   useEffect(() => {
@@ -50,16 +51,20 @@ const EditPage = () => {
   return (
     <div className="container">
       <ItemBox>
-        <Draggable onDrag={handleDrag} {...dragHandlers}>
-          <div className="box">
-            <img
-              onDragStart={(e) => e.preventDefault()}
-              src="./apple.png"
-              alt="apple"
-              className="itemImg"
-            />
-          </div>
-        </Draggable>
+        {items.map((src) => {
+          return (
+            <Draggable onDrag={handleDrag} {...dragHandlers} key={src}>
+              <div className="box">
+                <img
+                  onDragStart={(e) => e.preventDefault()}
+                  src={src}
+                  alt={src.replace(".png", "")}
+                  className="itemImg"
+                />
+              </div>
+            </Draggable>
+          );
+        })}
       </ItemBox>
       <Tree />
     </div>
