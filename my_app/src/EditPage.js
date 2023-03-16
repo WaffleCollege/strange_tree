@@ -58,7 +58,7 @@ const EditPage = () => {
                 <img
                   onDragStart={(e) => e.preventDefault()}
                   src={src}
-                  alt={src.replace(".png", "")}
+                  alt={src.replace(".png", "").replace("./", "")}
                   className="itemImg"
                 />
               </div>
