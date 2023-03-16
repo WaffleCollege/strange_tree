@@ -22,7 +22,7 @@ const App = () => {
             path="/logout"
             element={<Logout />}
           ></Route>
-          <Route path="/Stage" element={<Stage />}></Route>
+          <Route path="/stage" element={<Stage />}></Route>
         </Routes>
       </Router>
     </div>

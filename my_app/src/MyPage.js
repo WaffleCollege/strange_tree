@@ -11,7 +11,7 @@ const MyPage = () => {
   const { isAuth } = useAuthContext();
   const navigate = useNavigate();
   const move = () => {
-    navigate("/Stage");
+    navigate("/stage");
   };
 
   useEffect(() => {
