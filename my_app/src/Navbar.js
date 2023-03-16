@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,6 +7,18 @@ import { useAuthContext } from "./context";
 
 export const Navbar = () => {
   const { owner, isAuth, avatar } = useAuthContext();
+  const dropDownMenu = document.getElementsByClassName("dropdown")[0];
+  const toggleVisibility = (e) => {
+    dropDownMenu.classList.toggle("show");
+  };
+
+  window.onclick = function (event) {
+    if (!event.target.matches(".menuWrapper")) {
+      if (dropDownMenu.classList.contains("show")) {
+        dropDownMenu.classList.remove("show");
+      }
+    }
+  };
 
   return (
     <nav>
@@ -14,24 +26,37 @@ export const Navbar = () => {
         <a href="/">Strange Tree</a>
       </div>
       <div className="links">
-        <Link to="/edit">ツリーを飾る</Link>
         {isAuth ? (
-          <>
-            <Link to="/">
-              <img src={avatar} alt="avatar" className="avatar" />
-              {owner}
-            </Link>
-            <Link to="/logout">
-              <FontAwesomeIcon icon={faArrowRightToBracket} />
-              ログアウト
-            </Link>
-          </>
-        ) : (
-          <Link to="/login">
-            <FontAwesomeIcon icon={faArrowRightToBracket} />
-            ログイン
-          </Link>
-        )}
+          <div className="menuWrapper" onClick={toggleVisibility}>
+            <img src={avatar} alt="avatar" className="avatar" />
+            {owner}
+          </div>
+        ) : null}
+        <ul className="dropdown">
+          {isAuth ? (
+            <>
+              <li className="menuItem">
+                <Link to="/logout">
+                  <FontAwesomeIcon icon={faArrowRightToBracket} />
+                  ログアウト
+                </Link>
+              </li>
+              <li className="menuItem">
+                <Link to="/edit">ツリーを編集</Link>
+              </li>
+              <li className="menuItem">
+                <Link to="/">マイページ</Link>
+              </li>
+            </>
+          ) : (
+            <li className="menuItem">
+              <Link to="/login">
+                <FontAwesomeIcon icon={faArrowRightToBracket} />
+                ログイン
+              </Link>
+            </li>
+          )}
+        </ul>
       </div>
     </nav>
   );
