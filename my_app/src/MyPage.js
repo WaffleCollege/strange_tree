@@ -5,12 +5,13 @@ import Button from "./Button.js";
 import Sun from "./Sun.js";
 import WeeklyCommit from "./WeeklyCommit.js";
 import { useAuthContext } from "./context.js";
+import "./MyPage.css";
 
 const MyPage = () => {
   const { isAuth } = useAuthContext();
   const navigate = useNavigate();
   const move = () => {
-    navigate("/Stage");
+    navigate("/stage");
   };
 
   useEffect(() => {
@@ -20,12 +21,14 @@ const MyPage = () => {
   }, [isAuth]);
 
   return (
-    <>
+    <div className="myPageContainer">
       <Sun />
-      <Tree />
-      <Button function={move} text="ステージ一覧" />
-      <WeeklyCommit />
-    </>
+      <div className="treeContents">
+        <Tree />
+        <Button function={move} text="ステージ一覧" />
+        <WeeklyCommit />
+      </div>
+    </div>
   );
 };
 

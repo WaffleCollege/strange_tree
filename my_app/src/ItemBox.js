@@ -4,8 +4,8 @@ import "./ItemBox.css";
 const ItemBox = ({ children }) => {
   return (
     <div className="itemBox">
-      <p>ItemBox</p>
-      {children}
+      <h4>ItemBox</h4>
+      <div className="imgContainer">{children}</div>
     </div>
   );
 };
