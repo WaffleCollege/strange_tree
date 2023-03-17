@@ -25,12 +25,12 @@
     align-items: baseline;
 }
 
-button {
+/* button {
     height: 10%;
     padding: 10px 40px;
     margin-right: 50px;
     font-size: 18px;
-}
+} */
 
 .username {
     display: flex;
