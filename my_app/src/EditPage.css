@@ -31,3 +31,8 @@ button {
     margin-right: 50px;
     font-size: 18px;
 }
+
+.username {
+    display: flex;
+    align-items: center;
+}

@@ -4,6 +4,7 @@ import "./Navbar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { useAuthContext } from "./context";
+import { IoMdArrowDropdown } from "react-icons/io";
 
 export const Navbar = () => {
   const { owner, isAuth, avatar } = useAuthContext();
@@ -29,7 +30,10 @@ export const Navbar = () => {
         {isAuth ? (
           <div className="menuWrapper" onClick={toggleVisibility}>
             <img src={avatar} alt="avatar" className="avatar" />
-            {owner}
+            <div className="username">
+              {owner}
+              <IoMdArrowDropdown />
+            </div>
           </div>
         ) : null}
         <ul className="dropdown">
