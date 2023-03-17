@@ -4,9 +4,10 @@ import { auth, provider } from "./firebaseApp";
 import Button from "./Button";
 import "./Login.css";
 import { useAuthContext } from "./context";
+import { FaGithub } from "react-icons/fa";
 
 const Login = () => {
-  const {setOwner, setIsAuth, setToken, setAvatar} = useAuthContext();
+  const { setOwner, setIsAuth, setToken, setAvatar } = useAuthContext();
   const navigate = useNavigate();
   const postUserData = (url, data) => {
     fetch(url, {
@@ -36,7 +37,7 @@ const Login = () => {
       email: result.user.email,
       avatar: result.user.photoURL,
       created_at: loginTime,
-      token: credential.accessToken
+      token: credential.accessToken,
     };
     postUserData("http://localhost:8080/users", data);
     setOwner(result._tokenResponse.screenName);
@@ -52,7 +53,10 @@ const Login = () => {
   return (
     <div className="loginPage">
       <div className="label">ログインして始める</div>
-      <Button function={loginWithGithub} text="Githubでログイン" />
+      <button onClick={loginWithGithub} className="btn">
+        Githubでログイン
+        <FaGithub />
+      </button>
     </div>
   );
 };

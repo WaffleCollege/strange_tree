@@ -13,9 +13,7 @@ import "./MyPage.css";
 const MyPage = () => {
   const { isAuth } = useAuthContext();
   const navigate = useNavigate();
-  const move = () => {
-    navigate("/stage");
-  };
+
 
   useEffect(() => {
     if (!isAuth) {
@@ -28,7 +26,6 @@ const MyPage = () => {
       <Sun />
       <div className="treeContents">
         <Tree />
-        <Button function={move} text="ステージ一覧" />
         <WeeklyCommit />
       </div>
       <Gauge />
