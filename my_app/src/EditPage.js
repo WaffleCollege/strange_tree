@@ -53,22 +53,22 @@ const EditPage = () => {
       document.getElementsByClassName("treeImg")[0]
     );
     const image = canvas.toDataURL("image/png", 1.0);
-    downloadImage(image, imageFileName);
+    // downloadImage(image, imageFileName);
   };
 
-  const downloadImage = (blob, fileName) => {
-    const fakeLink = window.document.createElement("a");
-    fakeLink.style = "display:none;";
-    fakeLink.download = fileName;
+  // const downloadImage = (blob, fileName) => {
+  //   const fakeLink = window.document.createElement("a");
+  //   fakeLink.style = "display:none;";
+  //   fakeLink.download = fileName;
 
-    fakeLink.href = blob;
+  //   fakeLink.href = blob;
 
-    document.body.appendChild(fakeLink);
-    fakeLink.click();
-    document.body.removeChild(fakeLink);
+  //   document.body.appendChild(fakeLink);
+  //   fakeLink.click();
+  //   document.body.removeChild(fakeLink);
 
-    fakeLink.remove();
-  };
+  //   fakeLink.remove();
+  // };
 
   useEffect(() => {
     getItemList();
