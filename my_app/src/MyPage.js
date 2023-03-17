@@ -25,7 +25,7 @@ const MyPage = () => {
     <>
       <Sun />
       <Tree />
-      <Gauge/>
+      <Gauge />
       
       <Button function={move} text="ステージ一覧" />
      

@@ -1,16 +1,11 @@
-
-
-
-
 #life-frame {
+    position: relative;  
+    bottom: 200px; 
+    left: 600px;
     transform:rotate(-90deg);
-    
-    margin: 0 auto;
-    width: 50%;
+    width: 30%;
     background-color: rgba(202, 225, 110, 0.6);
-    display: flex;
-    padding: 3px 3px;
-}
+    display: flex;}
 
 #life-bar {
     height: 3px;

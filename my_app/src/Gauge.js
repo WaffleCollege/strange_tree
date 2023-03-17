@@ -50,12 +50,10 @@ let life = 0;
 
 
  return(
-  
-  <div id="life-frame">
+<div id="life-frame">
     <p id="life-bar"></p>
     <p id="life-mark"></p>
 </div>
-  
  );
 };
 
