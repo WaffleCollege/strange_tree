@@ -1,6 +1,8 @@
 .container {
     display: flex;
-    margin: none;
+    margin: 40px;
+    /* justify-content: center; */
+    align-items: center;
     /* flex-direction: row; */
     /* gap: 10%; */
 }
@@ -11,9 +13,21 @@
 
 .treeContainer {
     flex: 60%;
-    margin-right: 10%;
+    /* margin-right: ; */
 }
 
 .treeImg {
-width: 40%;
+    width: 40%;
+}
+
+.buttonContainer {
+    display: flex;
+    align-items: baseline;
+}
+
+button {
+    height: 10%;
+    padding: 10px 40px;
+    margin-right: 50px;
+    font-size: 18px;
 }

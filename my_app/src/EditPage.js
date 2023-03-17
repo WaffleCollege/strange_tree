@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ItemBox from "./ItemBox";
 import Tree from "./Tree";
 import Draggable from "react-draggable";
 import { useAuthContext } from "./context";
 import "./EditPage.css";
+import Button from "./Button";
+import html2canvas from "html2canvas";
 
 const EditPage = () => {
   const [activeDrags, setActiveDrags] = useState(0);
@@ -45,9 +47,35 @@ const EditPage = () => {
     );
     setItems(itemList);
   };
+
+  const exportAsImage = async (el, imageFileName) => {
+    const canvas = await html2canvas(
+      document.getElementsByClassName("treeImg")[0]
+    );
+    const image = canvas.toDataURL("image/png", 1.0);
+    downloadImage(image, imageFileName);
+  };
+
+  const downloadImage = (blob, fileName) => {
+    const fakeLink = window.document.createElement("a");
+    fakeLink.style = "display:none;";
+    fakeLink.download = fileName;
+
+    fakeLink.href = blob;
+
+    document.body.appendChild(fakeLink);
+    fakeLink.click();
+    document.body.removeChild(fakeLink);
+
+    fakeLink.remove();
+  };
+
   useEffect(() => {
     getItemList();
   }, [owner, setItems]);
+
+  const exportRef = useRef();
+
   return (
     <div className="container">
       <ItemBox>
@@ -66,8 +94,14 @@ const EditPage = () => {
           );
         })}
       </ItemBox>
-      <div className="treeContainer">
+      <div className="treeContainer" ref={exportRef}>
         <Tree />
+      </div>
+      <div className="buttonContainer">
+        <Button
+          text="保存"
+          function={() => exportAsImage(exportRef.current, "tree")}
+        ></Button>
       </div>
     </div>
   );
