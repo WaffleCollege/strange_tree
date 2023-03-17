@@ -27,8 +27,8 @@ const MyPage = () => {
       <div className="treeContents">
         <Tree />
         <WeeklyCommit />
-      </div>
       <Gauge />
+      </div>
     </div>
   );
 };
