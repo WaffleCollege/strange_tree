@@ -1,7 +1,5 @@
 .myPageContainer {
     display: flex;
-    background-image: url("../public/horizon.jpeg");
-    background-size: cover;
 }
 
 .treeContents {
