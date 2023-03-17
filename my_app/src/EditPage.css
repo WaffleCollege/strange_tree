@@ -1,14 +1,18 @@
 .container {
     display: flex;
-    margin: 40px;
+    /* margin: 40px; */
     /* justify-content: center; */
     align-items: center;
     /* flex-direction: row; */
     /* gap: 10%; */
+    background-image: url("../public/horizon.jpeg");
+    background-size: cover;
 }
 
 .itemBox {
     flex: 10%;
+    background-color: white;
+    margin: 30px;
 }
 
 .treeContainer {
@@ -23,6 +27,7 @@
 .buttonContainer {
     display: flex;
     align-items: baseline;
+    transform: translate(-100px, 200px);
 }
 
 /* button {
