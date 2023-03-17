@@ -5,7 +5,10 @@ import Button from "./Button.js";
 import Sun from "./Sun.js";
 import WeeklyCommit from "./WeeklyCommit.js";
 import { useAuthContext } from "./context.js";
+import Gauge from "./Gauge.js";
+
 import "./MyPage.css";
+
 
 const MyPage = () => {
   const { isAuth } = useAuthContext();
@@ -28,6 +31,7 @@ const MyPage = () => {
         <Button function={move} text="ステージ一覧" />
         <WeeklyCommit />
       </div>
+      <Gauge />
     </div>
   );
 };
