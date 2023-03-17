@@ -5,7 +5,7 @@ import "./Tree.css";
 
 const Tree = () => {
   console.log("tree");
-  const { owner, token, setToken } = useAuthContext();
+  const { owner, token, setToken, firstLogin, setFirstLogin } = useAuthContext();
   const { repoNames, setRepoNames, commits, setCommits } = useGitInfoContext();
   const trees = [
     "https://i.ibb.co/0QZCRFG/tree-seichou01.png", //種
@@ -17,18 +17,21 @@ const Tree = () => {
     "https://i.ibb.co/HgjkX7G/tree-seichou07.png", //木２
     "https://i.ibb.co/DfHB8Jz/tree-seichou08.png", //木３
     "https://i.ibb.co/mFWQNCg/tree-seichou09.png", //リンゴ
-  ]; 
+  ];
   const [treeimg, setTreeimg] = useState("");
 
   useEffect(() => {
-    const getToken = async () => {
+    const getUserInfo = async () => {
       const result = await fetch(`http://localhost:8080/users/${owner}`)
         .then((res) => res.json())
-        .then((data) => data.token);
-      setToken(result);
+        .then((data) => {
+          return { token: data.token, firstLogin: data.created_at };
+        });
+      setToken(result.token);
+      setFirstLogin(result.firstLogin);
     };
-    getToken();
-  }, [owner, setToken]);
+    getUserInfo();
+  }, [owner, setToken, setFirstLogin]);
 
   useEffect(() => {
     if (token) {
@@ -67,7 +70,7 @@ const Tree = () => {
       const commitNums = await Promise.all(
         repoNames.map(async (repo) => {
           const data = await fetch(
-            `https://api.github.com/repos/${owner}/${repo}/commits?since=2023-01-26T09:00:45Z`,
+            `https://api.github.com/repos/${owner}/${repo}/commits?${firstLogin}`,
             {
               headers: {
                 Authorization: `token ${token}`,
@@ -84,7 +87,7 @@ const Tree = () => {
       setCommits(allCommits);
     };
     countCommits();
-  }, [repoNames, token, setCommits, owner]);
+  }, [repoNames, token, setCommits, owner, firstLogin]);
 
   useEffect(() => {
     if (commits <= 20) {
@@ -109,8 +112,8 @@ const Tree = () => {
   }, [commits]);
   return (
     <>
-      <img className="treeimg" src={treeimg} alt="tree" />
-      <h1 className="monthtext">-{owner}の木-</h1>
+      <img className="treeImg" src={treeimg} alt="tree" />
+      <h1 className="treeOwner">-{owner}の木-</h1>
     </>
   );
 };

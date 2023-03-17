@@ -7,12 +7,14 @@ import WeeklyCommit from "./WeeklyCommit.js";
 import { useAuthContext } from "./context.js";
 import Gauge from "./Gauge.js";
 
+import "./MyPage.css";
+
 
 const MyPage = () => {
   const { isAuth } = useAuthContext();
   const navigate = useNavigate();
   const move = () => {
-    navigate("/Stage");
+    navigate("/stage");
   };
 
   useEffect(() => {
@@ -22,15 +24,15 @@ const MyPage = () => {
   }, [isAuth]);
 
   return (
-    <>
+    <div className="myPageContainer">
       <Sun />
-      <Tree />
+      <div className="treeContents">
+        <Tree />
+        <Button function={move} text="ステージ一覧" />
+        <WeeklyCommit />
+      </div>
       <Gauge />
-      
-      <Button function={move} text="ステージ一覧" />
-     
-      <WeeklyCommit />
-    </>
+    </div>
   );
 };
 

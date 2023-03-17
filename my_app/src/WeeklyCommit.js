@@ -42,10 +42,11 @@ const WeeklyCommit = () => {
 
   useEffect(() => {
     async function getWeeklyCommits() {
+      console.log(repoNames.length);
       const commitsNumsArray = await Promise.all(
-        repoNames.map(async (names) => {
+        repoNames.map(async (name) => {
           const data = await fetch(
-            `https://api.github.com/repos/${owner}/${names}/stats/commit_activity`,
+            `https://api.github.com/repos/${owner}/${name}/stats/commit_activity`,
             {
               headers: {
                 Authorization: `token ${token}`,
@@ -53,8 +54,8 @@ const WeeklyCommit = () => {
               },
             }
           )
-            .then((results) => {
-              return results.json();
+            .then(async (results) => {
+              return await results.json();
             })
             .then((data) => {
               return data[data.length - 1];
