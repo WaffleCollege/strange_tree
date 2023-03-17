@@ -50,10 +50,13 @@ let life = 0;
 
 
  return(
-<div id="life-frame">
+<div >
+<p id ="gauge">コミットゲージ</p>
+  <p id="life-frame">
     <p id="life-bar"></p>
     <p id="life-mark"></p>
-</div>
+    </p>
+    </div>
  );
 };
 

@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useAuthContext, useGitInfoContext } from "./context";
+import "./WeeklyCommit.css"
+
 
 const WeeklyCommit = () => {
   const { repoNames, commits } = useGitInfoContext();
@@ -70,8 +72,8 @@ const WeeklyCommit = () => {
   }, [commits, token, repoNames, owner]);
 
   return (
-    <div>
-      <p>今週のコミット数『{weeklyCommits}』</p>
+    <div className="weekly">
+      <p className="commit">今週のコミット数『{weeklyCommits}』</p>
       {/* <p>先週のコミット数『{lastWeeklyCommits}』</p> */}
     </div>
   );
